@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:18:28 by obentahi          #+#    #+#             */
-/*   Updated: 2025/05/06 02:31:45 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:08:19 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstat(t_list *list, int i);
 int		ft_strcmp(char *str1, char *str2);
 char	*get_next_line(int fd);
-int		ft_printf(const char *s, ...);
+void	*ft_malloc(size_t size, int free_flag);
 
 #endif

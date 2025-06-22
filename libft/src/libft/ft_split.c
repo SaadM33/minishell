@@ -6,11 +6,11 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:15:42 by obentahi          #+#    #+#             */
-/*   Updated: 2025/01/14 20:53:39 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:11:07 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
@@ -35,7 +35,7 @@ static char	*ft_strcdup(const char *s, char c)
 	len = 0;
 	while (s[len] != 0 && s[len] != c)
 		len++;
-	result = malloc(sizeof(char) * (len + 1));
+	result = ft_malloc(sizeof(char) * (len + 1), 0);
 	if (!result)
 		return (NULL);
 	ft_memcpy(result, s, len);
@@ -85,7 +85,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	out = malloc(sizeof(char *) * (ft_word_count(s, c) + 1));
+	out = ft_malloc(sizeof(char *) * (ft_word_count(s, c) + 1), 0);
 	if (!out)
 		return (NULL);
 	fill((char *)s, out, c);

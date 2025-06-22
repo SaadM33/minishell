@@ -55,6 +55,7 @@ SRC_NAME =	libft/ft_atoi.c					\
 			libft/ft_lstmap.c				\
 			libft/ft_lstnew.c				\
 			libft/ft_lstsize.c				\
+			libft/ft_malloc.c				\
 			get_next_line/get_next_line.c
 
 INC_FLAG = -I includes

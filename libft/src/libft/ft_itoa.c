@@ -6,11 +6,11 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:11:08 by obentahi          #+#    #+#             */
-/*   Updated: 2025/01/14 20:32:52 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:10:13 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int	ft_size(long n)
 {
@@ -65,7 +65,7 @@ char	*ft_itoa(int n0)
 
 	n = n0;
 	i = ft_size(n);
-	out = malloc(sizeof(char) * (i + 1));
+	out = ft_malloc(sizeof(char) * (i + 1), 0);
 	if (out == NULL)
 		return (NULL);
 	fill(out, n);
