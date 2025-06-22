@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 12:06:21 by obentahi          #+#    #+#             */
-/*   Updated: 2025/01/20 12:15:27 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:59:40 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
 	if (del && lst)
 		del(lst -> content);
-	free(lst);
+	ft_free(lst);
 }

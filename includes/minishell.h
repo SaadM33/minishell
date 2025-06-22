@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/22 19:50:40 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:39:17 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
+
+/*     MACROS     */
+
+# ifndef MINISHELL_MACRO
+#  define MINISHELL_MACRO
+#  define DF 0 // default
+#  define SQ 1 // single quotes
+#  define DQ 2 // double quotes
+#  define OP 3 // opperators (<<, >>, <, >)
+#  define PP 4 // pipe
+# endif
+
 
 typedef struct s_token
 {
@@ -65,8 +77,8 @@ void	sigint_handler(int sig);
 
 /* Parsing */
 void	parser(t_data *data);
+int		lexer(t_data *data);
 void	syntax_checker(t_data *data);
-
 
 /* built in functions */
 int		is_builtin(t_data *data);

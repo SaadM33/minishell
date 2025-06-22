@@ -6,11 +6,11 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:45:22 by obentahi          #+#    #+#             */
-/*   Updated: 2025/01/14 20:39:11 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:27:31 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putchar_fd(char c, int fd);
+#include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -19,9 +19,5 @@ void	ft_putstr_fd(char *s, int fd)
 	if (!s)
 		return ;
 	i = 0;
-	while (s[i])
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
+	write(fd, s, ft_strlen(s));
 }

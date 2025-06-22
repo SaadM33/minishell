@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 18:46:53 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/22 19:08:05 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:55:28 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void	*ft_malloc(size_t size, int free_flag)
 {
-	static t_list	*list;
+	static t_list	*list = 0;
 	t_list			*node;
 	void			*ptr;
 
-	if (free_flag)
-	{
-		ft_lstclear(&list, free);
-		return (NULL);
-	}
+	if (free_flag == 1)
+		return (ft_lstclear(&list, free), NULL);
+	if (free_flag == 2)
+		return (&list);
 	ptr = malloc(size);
 	if (ptr)
 	{
@@ -30,7 +29,7 @@ void	*ft_malloc(size_t size, int free_flag)
 		if (node)
 		{
 			ft_lstadd_back(list, node);
-			return (ptr);
+			return (ft_lstadd_back(list, node), ptr);
 		}
 		free(ptr);
 	}

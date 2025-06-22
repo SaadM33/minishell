@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 19:43:02 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/06/22 19:51:17 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:33:17 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	free_token_list(t_token **head)
 	while (current)
 	{
 		next = current->next;
-		free(current->arg);
-		free(current);
+		ft_free(current->arg);
+		ft_free(current);
 		current = next;
 	}
 	*head = NULL;
@@ -64,6 +64,6 @@ void	free_token_list(t_token **head)
 // 		*head = node->next;
 // 	if (node->next)
 // 		node->next->prev = node->prev;
-// 	free(node->arg);
-// 	free(node);
+// 	ft_free(node->arg);
+// 	ft_free(node);
 // }

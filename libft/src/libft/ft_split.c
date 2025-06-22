@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 11:15:42 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/22 19:11:07 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 22:00:14 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static void	freestrs(char **s, int i)
 {
 	while (i > 0)
 	{
-		free(s[i - 1]);
+		ft_free(s[i - 1]);
 		i--;
 	}
-	free(s);
+	ft_free(s);
 }
 
 static void	fill(char *s, char **out, char c)

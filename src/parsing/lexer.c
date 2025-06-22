@@ -1,0 +1,96 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/22 21:05:27 by obentahi          #+#    #+#             */
+/*   Updated: 2025/06/23 00:20:31 by obentahi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || (c >= 9 && c <= 13));
+}
+
+int	ft_isdelimiter(char c)
+{
+	return (c == ' ' || (c >= 9 && c <= 13) ||
+		c == '<' || c == '>' || c == '|' || c == '"' || c == '\'' || !c);
+}
+
+int	ft_isoperator(char c)
+{
+	return (c == '<' || c == '>' || c == '|');
+}
+
+int	ft_isquote(char c)
+{
+	return (c == '"' || c == '\'');
+}
+
+int	lexer3(t_data *data, int *ft_flag, char *i, int *quote)
+{
+	if (!*ft_flag && !ft_isdelimiter(data->str[*i]))
+	{
+		*ft_flag = 1;
+		*quote = 0;
+		return (*i);
+	}
+	else if (!ft_flag && ft_isquote(data->str[*i]))
+	{
+		*ft_flag = 2;
+		*quote = data->str[*i];
+		return (*i + 1);
+	}
+}
+
+int	lexer2(t_data *data, char quote, int start, int *i)
+{
+	if (!quote && ft_isdelimiter(data->str[*i]))
+	{
+		add_token_node(&data->token_list, ft_substr(data->str, start, *i - start),
+			0, ft_isquote(data->str[*i]));
+	}
+	else if (quote && data->str[*i] == quote)
+	{
+		add_token_node(&data->token_list, ft_substr(data->str, start, *i - start),
+			1 + (data->str[*i] == '"'), !ft_isdelimiter(data->str[*i + 1])
+			|| ft_isquote(data->str[*i + 1]));
+		(*i)++;
+	}
+	return (0);
+}
+
+int	lexer(t_data *data)
+{
+	char (quote), (*str);
+	int (ft_flag), start, i;
+	ft_flag = 0;
+	start = 0;
+	i = 0;
+	str = data->str;
+	while (str[i])
+	{
+		if (!ft_flag && (!ft_isdelimiter(str[i]) || ft_isquote(str[i])))
+			start = lexer3(data, &ft_flag, &i, &quote);
+		else if (!ft_flag && ft_isoperator(str[i]))
+		{
+			start = i;
+			add_token_node(&data->token_list, ft_substr(str, start,
+					1 + (str[i] == str[i + 1] && str[i + 1] != '|')),
+				3 + (str[i] == '|'), 0);
+			i = i + (str[i] == str[i + 1] && str[i + 1] != '|');
+		}
+		if ((ft_isdelimiter(str[++i]) && ft_flag == 1)
+			|| (ft_flag == 2 && str[i] == quote))
+			ft_flag = lexer2(data, quote, start, &i);
+	}
+	if (ft_flag)
+		return (free_token_list(&data->token_list), 2);
+	return (0);
+}

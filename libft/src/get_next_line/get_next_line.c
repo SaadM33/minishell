@@ -6,17 +6,11 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 02:19:33 by obentahi          #+#    #+#             */
-/*   Updated: 2025/01/15 23:45:58 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:59:34 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static void	ft_free(char **ptr)
-{
-	free(*ptr);
-	*ptr = NULL;
-}
 
 static char	*check_ln(char *buffer)
 {
@@ -43,7 +37,7 @@ static char	*update_storage(char *storage)
 	tmp = ft_strchr(storage, '\n');
 	start = tmp - storage + 1;
 	tmp = ft_substr(storage, start, ft_strlen(storage) - start);
-	ft_free(&storage);
+	ft_free(storage);
 	return (tmp);
 }
 
@@ -57,18 +51,18 @@ static char	*new_line(char *line, int fd)
 	if (line == NULL)
 		line = ft_calloc(1, 1);
 	if (buffer == NULL || line == NULL)
-		return (ft_free(&buffer), ft_free(&line), NULL);
+		return (ft_free(buffer), ft_free(line), NULL);
 	while (1)
 	{
 		i = read(fd, buffer, BUFFER_SIZE);
 		buffer[i] = '\0';
 		if (i == 0 && line[0] == '\0')
-			return (ft_free(&buffer), ft_free(&line), NULL);
+			return (ft_free(buffer), ft_free(line), NULL);
 		tmp = ft_strjoin(line, buffer);
-		ft_free(&line);
+		ft_free(line);
 		line = tmp;
 		if (i == 0 || line == NULL || ft_strchr(line, '\n'))
-			return (ft_free(&buffer), line);
+			return (ft_free(buffer), line);
 	}
 }
 
@@ -81,21 +75,21 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= 1024)
 		return (NULL);
 	if (BUFFER_SIZE <= 0 || read(fd, 0, 0) == -1)
-		return (ft_free(&storage[fd]), NULL);
+		return (ft_free(storage[fd]), NULL);
 	if (storage[fd] != NULL)
 	{
 		line = check_ln(storage[fd]);
 		if (line == NULL)
-			return (ft_free(&storage[fd]), NULL);
+			return (ft_free(storage[fd]), NULL);
 	}
 	if (!ft_strchr(line, '\n'))
 	{
-		ft_free(&(storage[fd]));
+		ft_free(storage[fd]);
 		storage[fd] = new_line(line, fd);
 		line = check_ln(storage[fd]);
 	}
 	storage[fd] = update_storage(storage[fd]);
 	if (storage[fd] == NULL || line == NULL)
-		return (ft_free(&(storage[fd])), ft_free(&line), NULL);
+		return (ft_free(storage[fd]), ft_free(line), NULL);
 	return (line);
 }

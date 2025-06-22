@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 18:18:59 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/06/22 18:21:06 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:39:10 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	parser(t_data *data)
 {
-	// tokenizer/lexer();
+	data->last_exit_code = lexer(data);
 	syntax_checker(data);
 	// to complete
 }
