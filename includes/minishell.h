@@ -6,7 +6,7 @@
 /*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/22 18:22:17 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:50:40 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ void	free_d_arr(char **arr);
 void	free_token_list(t_token **head);
 
 /* Linked list stuff*/
-void	add_token_node(t_token **head, char *arg);
+void	add_token_node(t_token **head, char *arg, int type, int append);
 
 #endif

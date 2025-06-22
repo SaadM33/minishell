@@ -18,7 +18,8 @@ LIB_PATH =	libft
 LIB_NAME =	libft.a
 
 SRC_NAME =	main.c \
-			parsing/parser.c
+			parsing/parser.c \
+			utils/linked_list.c
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
