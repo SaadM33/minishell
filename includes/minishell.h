@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/22 23:39:17 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 01:08:13 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_data
 	t_token	*token_list;
 
 	// t_cmd	*cmd_list;
-	int		last_exit_code;
+	int		exit_code;
 
 }	t_data;
 
@@ -107,5 +107,8 @@ void	free_token_list(t_token **head);
 
 /* Linked list stuff*/
 void	add_token_node(t_token **head, char *arg, int type, int append);
+
+/* Print list stuff */
+void	print_token_list(t_token *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:29:58 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/22 21:55:33 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:52:03 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free(void *ptr)
 	if (!list || !*list)
 		return ;
 	lst = *list;
-	if (lst->content = ptr)
+	if (lst->content == ptr)
 	{
 		*list = lst->next;
 		tmp = lst;

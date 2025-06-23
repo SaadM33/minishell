@@ -19,7 +19,9 @@ LIB_NAME =	libft.a
 
 SRC_NAME =	main.c \
 			parsing/parser.c \
-			utils/linked_list.c
+			parsing/lexer.c \
+			parsing/syntax_checker.c \
+			utils/linked_list.c 
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

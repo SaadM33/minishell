@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:45:22 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/22 23:27:31 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:47:40 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
 	if (!s)
 		return ;
-	i = 0;
 	write(fd, s, ft_strlen(s));
 }

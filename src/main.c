@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/22 18:26:23 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/06/23 01:09:46 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ int	main(int argc, char **argv, char **env)
 		// shrink this
 		if (g_received_signal == SIGINT)
 		{
-			data.last_exit_code = 130;
+			data.exit_code = 130;
 			g_received_signal = 0;
 		}
 		if (data.str == NULL)
 		{
 			printf("exit\n");
 			// free_d_arr(data.env);
-			exit(data.last_exit_code);
+			exit(data.exit_code);
 		}
 		add_history(data.str);
-		// parser(&data);
+		parser(&data);
 		// future execution here
 	}
 	return (0);

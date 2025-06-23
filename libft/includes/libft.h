@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:18:28 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/22 19:08:19 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:49:13 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
@@ -70,5 +71,6 @@ t_list	*ft_lstat(t_list *list, int i);
 int		ft_strcmp(char *str1, char *str2);
 char	*get_next_line(int fd);
 void	*ft_malloc(size_t size, int free_flag);
+void	ft_free(void *ptr);
 
 #endif

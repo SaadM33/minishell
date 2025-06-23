@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:05:27 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/23 00:20:31 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 00:56:42 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_isquote(char c)
 	return (c == '"' || c == '\'');
 }
 
-int	lexer3(t_data *data, int *ft_flag, char *i, int *quote)
+int	lexer3(t_data *data, int *ft_flag, int *i, char *quote)
 {
 	if (!*ft_flag && !ft_isdelimiter(data->str[*i]))
 	{
@@ -47,6 +47,7 @@ int	lexer3(t_data *data, int *ft_flag, char *i, int *quote)
 		*quote = data->str[*i];
 		return (*i + 1);
 	}
+	return (*i);
 }
 
 int	lexer2(t_data *data, char quote, int start, int *i)
@@ -68,7 +69,7 @@ int	lexer2(t_data *data, char quote, int start, int *i)
 
 int	lexer(t_data *data)
 {
-	char (quote), (*str);
+	char (qt), (*str);
 	int (ft_flag), start, i;
 	ft_flag = 0;
 	start = 0;
@@ -77,7 +78,7 @@ int	lexer(t_data *data)
 	while (str[i])
 	{
 		if (!ft_flag && (!ft_isdelimiter(str[i]) || ft_isquote(str[i])))
-			start = lexer3(data, &ft_flag, &i, &quote);
+			start = lexer3(data, &ft_flag, &i, &qt);
 		else if (!ft_flag && ft_isoperator(str[i]))
 		{
 			start = i;
@@ -87,10 +88,10 @@ int	lexer(t_data *data)
 			i = i + (str[i] == str[i + 1] && str[i + 1] != '|');
 		}
 		if ((ft_isdelimiter(str[++i]) && ft_flag == 1)
-			|| (ft_flag == 2 && str[i] == quote))
-			ft_flag = lexer2(data, quote, start, &i);
+			|| (ft_flag == 2 && str[i] == qt))
+			ft_flag = lexer2(data, qt, start, &i);
 	}
 	if (ft_flag)
-		return (free_token_list(&data->token_list), 2);
+		return (data->exit_code = 2, free_token_list(&data->token_list), qt);
 	return (0);
 }

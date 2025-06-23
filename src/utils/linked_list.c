@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 19:43:02 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/06/22 23:33:17 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 01:08:20 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ void	free_token_list(t_token **head)
 		current = next;
 	}
 	*head = NULL;
+}
+
+void	print_token_list(t_token *lst)
+{
+	while (lst)
+	{
+		printf("str: %s	type: %i	append: %i\n", lst->arg, lst->type, lst->append);
+		lst = lst->next;
+	}
 }
 
 // TODO	fix
