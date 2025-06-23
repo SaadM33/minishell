@@ -21,6 +21,7 @@ SRC_NAME =	main.c \
 			parsing/parser.c \
 			parsing/lexer.c \
 			parsing/syntax_checker.c \
+			utils/errors.c \
 			utils/linked_list.c 
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)

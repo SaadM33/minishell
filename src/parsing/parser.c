@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 18:18:59 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/06/23 01:24:30 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:01:38 by omar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	parser(t_data *data)
 {
-	int tmp;
-	
-	// tmp = lexer(data);   // currently not working will fix tomorrow
+	int	tmp;
+
+	tmp = lexer(data);   // works for now, need further testing later
+	if (tmp == '\'')
+		ft_error("TODO syntax error found '\n");
+	else if (tmp == '"')
+		ft_error("TODO syntax error found \"\n");
 	printf("%p\n", data->token_list);
 	print_token_list(data->token_list);
-	syntax_checker(data);
+	// syntax_checker(data);
 	// to complete
 }

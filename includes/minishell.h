@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/23 01:08:13 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 20:00:01 by omar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,10 @@ void	add_token_node(t_token **head, char *arg, int type, int append);
 
 /* Print list stuff */
 void	print_token_list(t_token *lst);
+
+/* error */
+void	ft_error(char *str);
+void	ft_error2(char *str1, char *str2);
+void	ft_error3(char *str1, char *str2, char *str3);
 
 #endif

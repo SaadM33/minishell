@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:05:27 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/23 00:56:42 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 21:03:49 by omar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,21 @@ int	ft_isquote(char c)
 	return (c == '"' || c == '\'');
 }
 
+int	ft_alloc_size(char *str, int i)
+{
+	return (str[i] == str[i + 1] && str[i + 1] != '|');
+}
+
 int	lexer3(t_data *data, int *ft_flag, int *i, char *quote)
 {
-	if (!*ft_flag && !ft_isdelimiter(data->str[*i]))
+	*ft_flag = 1;
+	if (!ft_isdelimiter(data->str[*i]))
 	{
-		*ft_flag = 1;
 		*quote = 0;
 		return (*i);
 	}
-	else if (!ft_flag && ft_isquote(data->str[*i]))
+	else if (ft_isquote(data->str[*i]))
 	{
-		*ft_flag = 2;
 		*quote = data->str[*i];
 		return (*i + 1);
 	}
@@ -56,15 +60,17 @@ int	lexer2(t_data *data, char quote, int start, int *i)
 	{
 		add_token_node(&data->token_list, ft_substr(data->str, start, *i - start),
 			0, ft_isquote(data->str[*i]));
+		return (0);
 	}
 	else if (quote && data->str[*i] == quote)
 	{
-		add_token_node(&data->token_list, ft_substr(data->str, start, *i - start),
-			1 + (data->str[*i] == '"'), !ft_isdelimiter(data->str[*i + 1])
-			|| ft_isquote(data->str[*i + 1]));
+		add_token_node(&data->token_list, ft_substr(data->str, start, (*i) - start),
+			1 + (data->str[*i] == '"'), !ft_isdelimiter(data->str[(*i) + 1])
+			|| ft_isquote(data->str[(*i) + 1]));
 		(*i)++;
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	lexer(t_data *data)
@@ -72,7 +78,6 @@ int	lexer(t_data *data)
 	char (qt), (*str);
 	int (ft_flag), start, i;
 	ft_flag = 0;
-	start = 0;
 	i = 0;
 	str = data->str;
 	while (str[i])
@@ -83,12 +88,11 @@ int	lexer(t_data *data)
 		{
 			start = i;
 			add_token_node(&data->token_list, ft_substr(str, start,
-					1 + (str[i] == str[i + 1] && str[i + 1] != '|')),
-				3 + (str[i] == '|'), 0);
-			i = i + (str[i] == str[i + 1] && str[i + 1] != '|');
+					1 + ft_alloc_size(str, i)), 3 + (str[i] == '|'), 0);
+			i += ft_alloc_size(str, i);
 		}
-		if ((ft_isdelimiter(str[++i]) && ft_flag == 1)
-			|| (ft_flag == 2 && str[i] == qt))
+		i++;
+		if (ft_flag && (ft_isdelimiter(str[i]) || str[i] == qt))
 			ft_flag = lexer2(data, qt, start, &i);
 	}
 	if (ft_flag)
