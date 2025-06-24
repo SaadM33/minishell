@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/23 01:09:46 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/23 09:57:33 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -39,7 +40,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		// prompt = build_prompt();
-		data.str = readline("Megashell>");
+		data.str = readline("Megashell> ");
 		// shrink this
 		if (g_received_signal == SIGINT)
 		{

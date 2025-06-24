@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/23 20:00:01 by omar             ###   ########.fr       */
+/*   Updated: 2025/06/23 09:57:08 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -78,7 +79,7 @@ void	sigint_handler(int sig);
 /* Parsing */
 void	parser(t_data *data);
 int		lexer(t_data *data);
-void	syntax_checker(t_data *data);
+int		syntax_checker(t_data *data);
 
 /* built in functions */
 int		is_builtin(t_data *data);
