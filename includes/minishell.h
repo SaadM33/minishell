@@ -79,7 +79,7 @@ void	sigint_handler(int sig);
 /* Parsing */
 void	parser(t_data *data);
 int		lexer(t_data *data);
-int		syntax_checker(t_data *data);
+int		syntax_checker(t_data *data, char unmatched_quote);
 
 /* built in functions */
 int		is_builtin(t_data *data);

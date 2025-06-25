@@ -96,6 +96,6 @@ int	lexer(t_data *data)
 			ft_flag = lexer2(data, qt, start, &i);
 	}
 	if (ft_flag)
-		return (data->exit_code = 2, free_token_list(&data->token_list), qt);
+		return (qt);
 	return (0);
 }

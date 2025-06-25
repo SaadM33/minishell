@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		add_history(data.str);
 		parser(&data);
+		free_token_list(&data.token_list);
 		// future execution here
 	}
 	return (0);
