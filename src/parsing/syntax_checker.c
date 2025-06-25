@@ -44,8 +44,8 @@ int	syntax_checker(t_data *data)
 			status = syn_error(data, next->arg);
 		if (!status)
 			return (0);
-		current = current->next;
 		next = current->next;
+		current = current->next;
 	}
 	return (1);
 }
