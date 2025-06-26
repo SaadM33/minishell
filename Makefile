@@ -21,8 +21,12 @@ SRC_NAME =	main.c \
 			parsing/parser.c \
 			parsing/lexer.c \
 			parsing/syntax_checker.c \
+			parsing/expand_and_join.c \
+			parsing/ft_split_whitespace.c \
 			utils/errors.c \
-			utils/linked_list.c 
+			utils/linked_list.c \
+			utils/general.c \
+			utils/envirenment.c
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

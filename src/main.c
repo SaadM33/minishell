@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/23 09:57:33 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:55:00 by omar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	(void) env;
 	ft_bzero(&data, sizeof(data));
+	data.env = ft_dupenv(env);
 	// data.env = copy_env(env);
 	// handle_signals();
 	while (1)

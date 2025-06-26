@@ -6,7 +6,7 @@
 /*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 18:18:59 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/06/23 01:24:30 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/26 13:05:19 by omar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,23 @@ void	parser(t_data *data)
 {
 	// test_lexer(data);  // For testing purposes, remove later
 	int res;
+	t_token	*list;
+	t_token *tmp1;
 
 	res = lexer(data);   // works for now, need further testing later
 	syntax_checker(data, res);
 	print_token_list(data->token_list);
+	printf("\n");
+	tmp1 = data->token_list;
+	while (tmp1)
+	{
+		list = ft_expand_and_join(tmp1, data, 0, NULL);
+		print_token_list(list);
+		free_token_list(&list);
+		while (tmp1 && tmp1->append)
+			tmp1 = tmp1->next;
+		tmp1 = tmp1->next;
+	}
+	free_token_list(&data->token_list);
 	// to complete
 }

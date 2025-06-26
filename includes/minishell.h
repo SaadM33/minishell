@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/06/23 09:57:08 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/06/26 12:31:10 by omar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
 # include <limits.h>
+# include <fcntl.h>
+# include <errno.h>
 # include <stdio.h>
 
 /*     MACROS     */
@@ -108,6 +109,7 @@ void	free_token_list(t_token **head);
 
 /* Linked list stuff*/
 void	add_token_node(t_token **head, char *arg, int type, int append);
+void	remove_token(t_token **head, t_token *node);
 
 /* Print list stuff */
 void	print_token_list(t_token *lst);
@@ -116,5 +118,20 @@ void	print_token_list(t_token *lst);
 void	ft_error(char *str);
 void	ft_error2(char *str1, char *str2);
 void	ft_error3(char *str1, char *str2, char *str3);
+
+/* envirenment */
+char	**ft_dupenv(char **env);
+int		ft_addvar(char *new, t_data *data);
+int		ft_expvar(char *var, t_data *data);
+char	*ft_getenv(char *var, t_data *data);
+int		ft_remvar(char *var, t_data *data);
+
+/* expand and join */
+t_token	*ft_expand_and_join(t_token *node, t_data *data, int not_expand, int *flag);
+char	**ft_split_whitespace(char const *s);
+
+/* general */
+int		ft_isspace(char c);
+void	ft_free_table(char **table);
 
 #endif

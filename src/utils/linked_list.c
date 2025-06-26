@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 19:43:02 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/06/23 01:08:20 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/06/26 13:00:24 by omar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	add_token_node(t_token **head, char *arg, int type, int append)
 	t_token	*new;
 	t_token	*curr;
 
-	if (!arg)
-		return ;
+	// if (!arg) // need abilty to add null strings to the list
+	// 	return ;
 	new = ft_malloc(sizeof(t_token), 0);
 	new->arg = arg;
 	new->type = type;
@@ -76,3 +76,27 @@ void	print_token_list(t_token *lst)
 // 	ft_free(node->arg);
 // 	ft_free(node);
 // }
+
+void	remove_token(t_token **head, t_token *node)
+{
+	t_token	*tmp;
+
+	if (!node || !head || !*head)
+		return ;
+	if (*head == node)
+	{
+		*head = node->next;
+		ft_free(node->arg);
+		ft_free(node);
+	}
+	else
+	{
+		tmp = *head;
+		while (tmp->next && tmp->next != node)
+			tmp = tmp->next;
+		if (tmp->next)
+			tmp->next = tmp->next->next;
+		ft_free(node->arg);
+		ft_free(node);
+	}
+}
