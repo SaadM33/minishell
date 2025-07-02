@@ -26,7 +26,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		i++;
 	if (i >= j)
 	{
-		str = ft_malloc(1, 0);
+		str = ft_malloc(1);
 		if (!str)
 			return (NULL);
 		str[0] = '\0';
@@ -34,7 +34,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	}
 	while (ft_strchr(set, s1[j - 1]))
 		j--;
-	str = ft_malloc(j - i + 1, 0);
+	str = ft_malloc(j - i + 1);
 	if (str == NULL)
 		return (NULL);
 	ft_strlcpy(str, s1 + i, j - i + 1);

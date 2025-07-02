@@ -33,7 +33,7 @@ static char	*ft_strcdup(const char *s)
 	len = 0;
 	while (s[len] != 0 && !ft_isspace(s[len]))
 		len++;
-	result = ft_malloc(sizeof(char) * (len + 1), 0);
+	result = ft_malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
 	ft_memcpy(result, s, len);
@@ -83,7 +83,7 @@ char	**ft_split_whitespace(char const *s)
 
 	if (!s)
 		return (NULL);
-	out = ft_malloc(sizeof(char *) * (ft_word_count(s) + 1), 0);
+	out = ft_malloc(sizeof(char *) * (ft_word_count(s) + 1));
 	if (!out)
 		return (NULL);
 	fill((char *)s, out);

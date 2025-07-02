@@ -26,7 +26,6 @@ static	int	syn_error(t_data *data, char *arg)
 	return (0);
 }
 
-// returns 1 if syntax is correct, 0 if there is an error
 int	syntax_checker(t_data *data, char unmatched_quote)
 {
 	t_token	*current;
@@ -35,6 +34,8 @@ int	syntax_checker(t_data *data, char unmatched_quote)
 	current = data->token_list;
 	if (unmatched_quote)
 		return (syn_error(data, &unmatched_quote), 0);
+	if (!current)
+		return (0);
 	if (data->token_list->type == PP)
 		return (syn_error(data, data->token_list->arg), 0);
 	while (current)

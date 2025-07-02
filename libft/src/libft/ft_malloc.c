@@ -12,25 +12,77 @@
 
 #include "libft.h"
 
-void	*ft_malloc(size_t size, int free_flag)
+t_list	**ft_get_list(void)
 {
-	static t_list	*list = 0;
-	t_list			*node;
-	void			*ptr;
+	static t_list	*list = NULL;
+	return (&list);
+}
 
-	if (free_flag == 1)
-		return (ft_lstclear(&list, free), NULL);
-	if (free_flag == 2)
-		return (&list);
+void	*ft_malloc(size_t size)
+{
+	t_list	**list;
+
+	t_list	*node;
+	void	*ptr;
+
 	ptr = malloc(size);
+	list = ft_get_list();
 	if (ptr)
 	{
 		node = ft_lstnew(ptr);
 		if (node)
-			return (ft_lstadd_back(&list, node), ptr);
+			return (ft_lstadd_back(list, node), ptr);
 		free(ptr);
 	}
 	perror("minishell");
-	ft_lstclear(&list, free);
-	exit(2);
+	ft_exit(2);
+	return (NULL);
+}
+
+void	ft_free(void *ptr)
+{
+	t_list	**list;
+	t_list	*lst;
+	t_list	*tmp;
+
+	free(ptr);
+	list = ft_get_list();
+	if (!list || !*list)
+		return ;
+	lst = *list;
+	if (lst->content == ptr)
+	{
+		*list = lst->next;
+		tmp = lst;
+	}
+	else
+	{
+		while (lst->next && lst->next->content != ptr)
+			lst = lst->next;
+		tmp = lst->next;
+		if (tmp)
+			lst->next = lst->next->next;
+	}
+	free(tmp);
+}
+
+void	ft_exit(int exit_code)
+{
+	t_list	**list;
+	t_list	*curr;
+	t_list	*next;
+
+	list = ft_get_list();
+	if (!list || !*list)
+		return;
+	curr = *list;
+	while (curr)
+	{
+		next = curr->next;
+		free(curr->content);
+		free(curr);
+		curr = next;
+	}
+	*list = NULL;
+	exit(exit_code);
 }

@@ -33,10 +33,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void) argc;
 	(void) argv;
-	(void) env;
 	ft_bzero(&data, sizeof(data));
 	data.env = ft_dupenv(env);
-	// data.env = copy_env(env);
 	// handle_signals();
 	while (1)
 	{
@@ -51,12 +49,14 @@ int	main(int argc, char **argv, char **env)
 		if (data.str == NULL)
 		{
 			printf("exit\n");
-			// free_d_arr(data.env);
-			exit(data.exit_code);
+			ft_exit(data.exit_code);
 		}
+		if (data.str[0] == '\0')
+			continue;
 		add_history(data.str);
 		parser(&data);
 		free_token_list(&data.token_list);
+		free_cmd_list(&data.cmd_list);
 		// future execution here
 	}
 	return (0);

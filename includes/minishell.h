@@ -49,15 +49,14 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	t_token			*list;
+	struct s_token	*list;
 
 	int				in_fd;
 	int				out_fd;
 
 	int				skip_cmd;
 
-	struct t_cmd	*next;
-	struct t_cmd	*prev;
+	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_data
@@ -68,7 +67,7 @@ typedef struct s_data
 
 	t_token	*token_list;
 
-	// t_cmd	*cmd_list;
+	t_cmd	*cmd_list;
 	int		exit_code;
 
 }	t_data;
@@ -81,6 +80,8 @@ void	sigint_handler(int sig);
 void	parser(t_data *data);
 int		lexer(t_data *data);
 int		syntax_checker(t_data *data, char unmatched_quote);
+void	list_to_cmds(t_data *data);
+int		handle_redirections(t_data *data, t_cmd *cmd);
 
 /* built in functions */
 int		is_builtin(t_data *data);
@@ -104,15 +105,20 @@ char	*ft_getenv(char *key, t_data *data);
 void	execute_cmd(t_data *data);
 
 /* clean-up functions */
-void	free_d_arr(char **arr);
+void	ft_free_table(char **table);
 void	free_token_list(t_token **head);
+void	free_cmd_list(t_cmd **head);
 
 /* Linked list stuff*/
+void	add_cmd_node(t_cmd **head, t_token *list);
+
 void	add_token_node(t_token **head, char *arg, int type, int append);
 void	remove_token(t_token **head, t_token *node);
 
+
 /* Print list stuff */
 void	print_token_list(t_token *lst);
+void	print_cmd_list(t_cmd *head);
 
 /* error */
 void	ft_error(char *str);
@@ -132,6 +138,5 @@ char	**ft_split_whitespace(char const *s);
 
 /* general */
 int		ft_isspace(char c);
-void	ft_free_table(char **table);
 
 #endif

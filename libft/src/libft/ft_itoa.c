@@ -65,7 +65,7 @@ char	*ft_itoa(int n0)
 
 	n = n0;
 	i = ft_size(n);
-	out = ft_malloc(sizeof(char) * (i + 1), 0);
+	out = ft_malloc(sizeof(char) * (i + 1));
 	if (out == NULL)
 		return (NULL);
 	fill(out, n);

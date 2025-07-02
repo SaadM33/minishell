@@ -43,7 +43,7 @@ int	ft_addvar(char *new, t_data *data)
 	i = 0;
 	while (data->env[i])
 		i++;
-	new_env = ft_malloc(sizeof(char *) * (i + 2), 0);
+	new_env = ft_malloc(sizeof(char *) * (i + 2));
 	if (!new_env)
 		return (errno);
 	i = 0;
@@ -80,7 +80,7 @@ int	ft_expvar(char *var, t_data *data)
 	tmp = ft_strdup(var);
 	if (!tmp)
 		return (errno);
-	free(data->env[i]);
+	ft_free(data->env[i]);
 	data->env[i] = tmp;
 	return (0);
 }
@@ -118,7 +118,7 @@ int	ft_remvar(char *var, t_data *data)
 		if (!ft_strncmp(data->env[i], var, ft_strlen(var)) &&
 			data->env[i][ft_strlen(var)] == '=')
 		{
-			free(data->env[i]);
+			ft_free(data->env[i]);
 			i++;
 			while (data->env[i])
 			{

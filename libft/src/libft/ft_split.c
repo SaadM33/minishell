@@ -35,7 +35,7 @@ static char	*ft_strcdup(const char *s, char c)
 	len = 0;
 	while (s[len] != 0 && s[len] != c)
 		len++;
-	result = ft_malloc(sizeof(char) * (len + 1), 0);
+	result = ft_malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
 	ft_memcpy(result, s, len);
@@ -85,7 +85,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	out = ft_malloc(sizeof(char *) * (ft_word_count(s, c) + 1), 0);
+	out = ft_malloc(sizeof(char *) * (ft_word_count(s, c) + 1));
 	if (!out)
 		return (NULL);
 	fill((char *)s, out, c);

@@ -70,7 +70,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstat(t_list *list, int i);
 int		ft_strcmp(char *str1, char *str2);
 char	*get_next_line(int fd);
-void	*ft_malloc(size_t size, int free_flag);
+// Memory management functions
+void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
+t_list	**ft_get_list(void);
+void	ft_exit(int exit_code);
 
 #endif

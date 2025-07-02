@@ -22,9 +22,11 @@ SRC_NAME =	main.c \
 			parsing/lexer.c \
 			parsing/syntax_checker.c \
 			parsing/expand_and_join.c \
+			parsing/redirection.c \
 			parsing/ft_split_whitespace.c \
 			utils/errors.c \
 			utils/linked_list.c \
+			utils/linked_cmd.c \
 			utils/general.c \
 			utils/envirenment.c
 			
