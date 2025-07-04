@@ -24,3 +24,14 @@ void	ft_free_table(char **table)
 	}
 	ft_free(table);
 }
+
+char	*ft_strjoin3(char *str1, char *middle, char *str2)
+{
+	char	*tmp;
+	char	*full_result;
+
+	tmp = ft_strjoin(str1, middle);
+	full_result = ft_strjoin(tmp, str2);
+	ft_free(tmp);
+	return (full_result);
+}

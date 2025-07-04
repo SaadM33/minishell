@@ -84,16 +84,16 @@ void	list_to_cmds(t_data *data);
 int		handle_redirections(t_data *data, t_cmd *cmd);
 
 /* built in functions */
-int		is_builtin(t_data *data);
-void	do_builtin(t_data *data);
+int		is_builtin(t_token *token);
+void	do_builtin(t_data *data, t_token *list, int exit_or_not);
 
-int		do_cd(t_data *data);
-int		do_echo(t_data *data);
+int		do_cd(t_data *data, t_token *list);
+int		do_echo(t_data *data, t_token *list);
 int		do_env(t_data *data);
-int		do_exit(t_data *data);
-int		do_export(t_data *data);
+int		do_exit(t_data *data, t_token *list);
+int		do_export(t_data *data, t_token *list);
 int		do_pwd(t_data *data);
-int		do_unset(t_data *data);
+int		do_unset(t_data *data, t_token *list);
 
 /* env functions */
 char	**copy_env(char **env);
@@ -102,7 +102,8 @@ void	ft_setenv(char ***env, char *key, char *val);
 char	*ft_getenv(char *key, t_data *data);
 
 /* Execution! */
-void	execute_cmd(t_data *data);
+void	full_execution(t_data *data);
+void	execute_cmd(t_data *data, t_token *list);
 
 /* clean-up functions */
 void	ft_free_table(char **table);
@@ -138,5 +139,5 @@ char	**ft_split_whitespace(char const *s);
 
 /* general */
 int		ft_isspace(char c);
-
+char	*ft_strjoin3(char *str1, char *middle, char *str2);
 #endif

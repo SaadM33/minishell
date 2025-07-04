@@ -24,7 +24,7 @@ void	parser(t_data *data)
 	// expand_and_join here
 	list_to_cmds(data);
 	handle_redirections(data, data->cmd_list);
-	print_cmd_list(data->cmd_list);
+	// print_cmd_list(data->cmd_list);
 
 	// to complete
 }

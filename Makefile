@@ -28,7 +28,14 @@ SRC_NAME =	main.c \
 			utils/linked_list.c \
 			utils/linked_cmd.c \
 			utils/general.c \
-			utils/envirenment.c
+			utils/envirenment.c \
+			built_in/ft_cd.c \
+			built_in/ft_echo.c \
+			built_in/ft_env.c \
+			built_in/ft_exit.c \
+			built_in/ft_export.c \
+			built_in/ft_pwd.c \
+			built_in/ft_unset.c 
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

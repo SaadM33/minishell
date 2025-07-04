@@ -62,6 +62,57 @@ int	ft_addvar(char *new, t_data *data)
 	return (0);
 }
 
+void	sort_env(char **env)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while (env[i])
+	{
+		j = 0;
+		while (env[j + 1])
+		{
+			if (ft_strcmp(env[j], env[j + 1]) > 0)
+			{
+				tmp = env[j];
+				env[j] = env[j + 1];
+				env[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ft_setenv(char ***env, char *key, char *val)
+{
+	int		i;
+	char	**new_env;
+	char	*entry;
+
+	entry = ft_strjoin3(key, "=", val);
+	i = -1;
+	while ((*env)[++i])
+	{
+		if (!ft_strncmp((*env)[i], key, ft_strlen(key))
+			&& (*env)[i][ft_strlen(key)] == '=')
+		{
+			ft_free((*env)[i]);
+			(*env)[i] = entry;
+			return ;
+		}
+	}
+	new_env = ft_malloc(sizeof(char *) * (i + 2));
+	i = -1;
+	while ((*env)[++i])
+		new_env[i] = (*env)[i];
+	new_env[i++] = entry;
+	new_env[i] = NULL;
+	(ft_free(*env), *env = new_env);
+}
+
 int	ft_expvar(char *var, t_data *data)
 {
 	int		i;
