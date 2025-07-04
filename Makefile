@@ -24,6 +24,7 @@ SRC_NAME =	main.c \
 			parsing/expand_and_join.c \
 			parsing/redirection.c \
 			parsing/ft_split_whitespace.c \
+			utils/signals.c \
 			utils/errors.c \
 			utils/linked_list.c \
 			utils/linked_cmd.c \
@@ -35,7 +36,10 @@ SRC_NAME =	main.c \
 			built_in/ft_exit.c \
 			built_in/ft_export.c \
 			built_in/ft_pwd.c \
-			built_in/ft_unset.c 
+			built_in/ft_unset.c \
+			exec/execution.c \
+			exec/run_builtin.c \
+			exec/run_cmd.c 
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
