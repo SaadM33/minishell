@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:36:26 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/02 17:36:27 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/08 23:01:24 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// this is the very first redirection handler
 
 int	is_redirection(t_token *token)
 {

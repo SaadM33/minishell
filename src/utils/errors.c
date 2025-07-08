@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:55:21 by omar              #+#    #+#             */
-/*   Updated: 2025/06/23 19:58:56 by omar             ###   ########.fr       */
+/*   Updated: 2025/07/07 14:56:03 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,30 @@ void	ft_error3(char *str1, char *str2, char *str3)
 		ft_error(str1);
 		ft_error(str2);
 		ft_error(str3);
+	}
+}
+
+void	ft_error4(char *str1, char *str2, char *str3, char *str4)
+{
+	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp = ft_strjoin(str1, str2);
+	tmp1 = ft_strjoin(tmp, str3);
+	tmp2 = ft_strjoin(tmp1, str4);
+	ft_free(tmp);
+	ft_free(tmp1);
+	if (tmp2)
+	{
+		ft_error(tmp2);
+		ft_free(tmp2);
+	}
+	else
+	{
+		ft_error(str1);
+		ft_error(str2);
+		ft_error(str3);
+		ft_error(str4);
 	}
 }

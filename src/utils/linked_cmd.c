@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 21:52:56 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/01 21:52:57 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:56:00 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	list_to_cmds(t_data *data)
 	{
 		while (current && current->type != PP)
 		{
-			add_token_node(&tmp_list, ft_strdup(current->arg), current->type, 0);
+			add_token_node(&tmp_list, ft_strdup(current->arg), current->type, current->append);
 			current = current->next;
 		}
 		add_cmd_node(&data->cmd_list, tmp_list);

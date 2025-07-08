@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 18:46:53 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/23 00:48:28 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/08 14:13:31 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*ft_malloc(size_t size)
 			return (ft_lstadd_back(list, node), ptr);
 		free(ptr);
 	}
-	perror("minishell");
+	perror("minishell: malloc");
 	ft_exit(2);
 	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:33:00 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/04 19:43:56 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/08 22:56:22 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	full_execution(t_data *data)
 	t_cmd	*cmd;
 
 	cmd = data->cmd_list;
+	// if (!cmd->list && !cmd->next)
+	// 	return ;
 	if (is_builtin(cmd->list) && !cmd->next && !cmd->skip_cmd)
 		exec_single_builtin(data, cmd);
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/04 22:33:15 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/08 21:53:29 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	main(int argc, char **argv, char **env)
 		if (!parser(&data))
 			continue;
 		full_execution(&data);
-		free_token_list(&data.token_list);
 		free_cmd_list(&data.cmd_list);
+		ft_free(data.str);
 	}
 	return (0);
 }

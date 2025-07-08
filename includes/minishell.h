@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/04 22:22:31 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/08 21:53:05 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 #  define DQ 2 // double quotes
 #  define OP 3 // opperators (<<, >>, <, >)
 #  define PP 4 // pipe
+#  define HEREDOC_SIZE 20
 # endif
 
 
@@ -82,10 +83,13 @@ int		lexer(t_data *data);
 int		syntax_checker(t_data *data, char unmatched_quote);
 void	list_to_cmds(t_data *data);
 int		handle_redirections(t_data *data, t_cmd *cmd);
+int		handle_heredoc(t_data *data, t_cmd *cmd);
 
-/* expand and join */
+/* expand*/
 t_token	*ft_expand_and_join(t_token *node, t_data *data, int not_expand, int *flag);
 char	**ft_split_whitespace(char const *s);
+char	*mini_expand(char *token, t_data *data);
+void	expand_all(t_data *data);
 
 /* built in functions */
 int		is_builtin(t_token *token);
@@ -104,6 +108,7 @@ char	**copy_env(char **env);
 void	sort_env(char **env);
 void	ft_setenv(char ***env, char *key, char *val);
 char	*ft_getenv(char *key, t_data *data);
+
 /* envirenment */
 char	**ft_dupenv(char **env);
 int		ft_addvar(char *new, t_data *data);
@@ -118,7 +123,6 @@ void	full_execution(t_data *data);
 
 /* Linked list stuff*/
 void	add_cmd_node(t_cmd **head, t_token *list);
-
 void	add_token_node(t_token **head, char *arg, int type, int append);
 void	remove_token(t_token **head, t_token *node);
 
@@ -131,14 +135,20 @@ void	print_cmd_list(t_cmd *head);
 void	ft_error(char *str);
 void	ft_error2(char *str1, char *str2);
 void	ft_error3(char *str1, char *str2, char *str3);
+void	ft_error4(char *str1, char *str2, char *str3, char *str4);
 
 /* clean-up functions */
 void	ft_free_table(char **table);
 void	free_token_list(t_token **head);
 void	free_cmd_list(t_cmd **head);
 
-
 /* general */
 int		ft_isspace(char c);
 char	*ft_strjoin3(char *str1, char *middle, char *str2);
+void	free_appended_nodes(t_token **head, t_token *node);
+
+/* tmp for now */
+int	ft_heredoc(t_token *node, t_cmd *cmd, t_data *data);
+void	close_prev_fd(t_cmd *cmd, int in_or_out);
+
 #endif
