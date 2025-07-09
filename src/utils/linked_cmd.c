@@ -79,8 +79,8 @@ void	print_cmd_list(t_cmd *head)
 
 void	list_to_cmds(t_data *data)
 {
-	t_token *current;
-	t_token *tmp_list;
+	t_token	*current;
+	t_token	*tmp_list;
 
 	current = data->token_list;
 	tmp_list = NULL;
@@ -88,7 +88,8 @@ void	list_to_cmds(t_data *data)
 	{
 		while (current && current->type != PP)
 		{
-			add_token_node(&tmp_list, ft_strdup(current->arg), current->type, current->append);
+			add_token_node(&tmp_list, ft_strdup(current->arg),
+				current->type, current->append);
 			current = current->next;
 		}
 		add_cmd_node(&data->cmd_list, tmp_list);

@@ -10,13 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
 int	parser(t_data *data)
 {
-	int res;
-	// t_token	*list;
+	int	res;
 
 	res = lexer(data);
 	if (!syntax_checker(data, res))

@@ -48,7 +48,8 @@ static int	parse_exit_code(char *str, long long *result)
 		if (*str < '0' || *str > '9')
 			return (0);
 		num = num * 10 + (*str - '0');
-		if ((sign == 1 && num > LLONG_MAX) || (sign == -1 && -num < LLONG_MIN))
+		if ((sign == 1 && num > LLONG_MAX)
+			|| (sign == -1 && (-num < LLONG_MIN)))
 			return (0);
 		str++;
 	}

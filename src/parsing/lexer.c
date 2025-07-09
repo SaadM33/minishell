@@ -19,8 +19,8 @@ int	ft_isspace(char c)
 
 int	ft_isdelimiter(char c)
 {
-	return (c == ' ' || (c >= 9 && c <= 13) ||
-		c == '<' || c == '>' || c == '|' || c == '"' || c == '\'' || !c);
+	return (c == ' ' || (c >= 9 && c <= 13) || c == '<'
+		|| c == '>' || c == '|' || c == '"' || c == '\'' || !c);
 }
 
 int	ft_isoperator(char c)
@@ -58,8 +58,8 @@ int	lexer2(t_data *data, char quote, int start, int *i)
 {
 	if (!quote && ft_isdelimiter(data->str[*i]))
 	{
-		add_token_node(&data->token_list, ft_substr(data->str, start, *i - start),
-			0, ft_isquote(data->str[*i]));
+		add_token_node(&data->token_list, ft_substr(data->str,
+				start, *i - start), 0, ft_isquote(data->str[*i]));
 		return (0);
 	}
 	else if (quote && data->str[*i] == quote)

@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char	*build_prompt()
+char	*build_prompt(void)
 {
-	char	cwd[1000];
+	char		cwd[1000];
 	static char	prompt[1000];
 
 	getcwd(cwd, sizeof(cwd));
@@ -50,10 +50,10 @@ int	main(int argc, char **argv, char **env)
 			ft_exit(data.exit_code);
 		}
 		if (data.str[0] == '\0')
-			continue;
+			continue ;
 		add_history(data.str);
 		if (!parser(&data))
-			continue;
+			continue ;
 		full_execution(&data);
 		free_cmd_list(&data.cmd_list);
 		ft_free(data.str);

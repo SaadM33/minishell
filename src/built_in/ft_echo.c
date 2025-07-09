@@ -22,7 +22,7 @@ int	n_only(t_token *node, int *flag)
 	while (node->arg[i])
 	{
 		if (node->arg[i] != 'n')
-		return (0);
+			return (0);
 		i++;
 	}
 	*flag = 1;

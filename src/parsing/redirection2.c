@@ -74,8 +74,8 @@ int	redirect(t_token *curr, t_cmd *cmd, t_data *data)
 {
 	t_token	*tmp;
 
-	if (cmd->in_fd != -1 && cmd->out_fd != -1 &&
-		curr->type == 3 && ft_strcmp(curr->arg, "<<")) // handle other operators
+	if (cmd->in_fd != -1 && cmd->out_fd != -1
+		&& curr->type == 3 && ft_strcmp(curr->arg, "<<")) // handle other operators
 	{
 		tmp = ft_expand_and_join(curr->next, data, 0, NULL);
 		if (!tmp || !tmp->arg || tmp->next)

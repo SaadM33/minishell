@@ -15,13 +15,13 @@
 t_list	**ft_get_list(void)
 {
 	static t_list	*list = NULL;
+
 	return (&list);
 }
 
 void	*ft_malloc(size_t size)
 {
 	t_list	**list;
-
 	t_list	*node;
 	void	*ptr;
 
@@ -74,7 +74,7 @@ void	ft_exit(int exit_code)
 
 	list = ft_get_list();
 	if (!list || !*list)
-		return;
+		return ;
 	curr = *list;
 	while (curr)
 	{

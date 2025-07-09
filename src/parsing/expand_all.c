@@ -35,7 +35,7 @@ void	expand_all(t_data *data)
 	t_token	*new_list;
 	t_token	*tmp1;
 	t_token	*tmp2;
-	
+
 	cmd = data->cmd_list;
 	while (cmd)
 	{

@@ -58,7 +58,7 @@ char	*ft_heredoc_name(int c)
 	name = ft_calloc(HEREDOC_SIZE + 1, sizeof(char));
 	fd = open("/dev/urandom", O_RDONLY);
 	char_buff = "2>ND{e:~mn7G`<kW6h^_IuAOw&#\\}y"
-			"aszM]btp?8@3%L$9J*4Kd!j[g5lfrRH0Y(ox;SE\"cXU1CQv|)F=q+T'-VZBP,i";
+		"aszM]btp?8@3%L$9J*4Kd!j[g5lfrRH0Y(ox;SE\"cXU1CQv|)F=q+T'-VZBP,i";
 	if (fd == -1)
 		return (perror("minishell: open"), ft_free(name), NULL);
 	i = 0;
@@ -77,13 +77,13 @@ char	*ft_heredoc_name(int c)
 
 int	ft_should_expand(t_token *node)
 {
-	int should_expand;
+	int	should_expand;
 
 	should_expand = 1;
 	while (node && node->append && node->next)
 	{
 		if (node->type)
-		should_expand = 0;
+			should_expand = 0;
 		node = node->next;
 	}
 	if (node->type)
@@ -94,15 +94,15 @@ int	ft_should_expand(t_token *node)
 void	heredoc_read_loop(t_token *node, int fd, int should_expand,
 		t_data *data)
 {
-	char *str;
-	char *str2;
+	char	*str;
+	char	*str2;
 
 	str = readline("> ");
 	if (!str)
 	{
 		close(fd);
 		ft_error3("minishell: warning: here-document delimited by "
-				"end-of-file (wanted `", node->arg, "')\n");
+			"end-of-file (wanted `", node->arg, "')\n");
 		ft_exit(0);
 	}
 	if (!ft_strcmp(str, node->arg))
@@ -150,8 +150,8 @@ int	last_in_redirection(t_cmd *cmd, t_token *node)
 	tmp = cmd->list;
 	while (tmp)
 	{
-		if (tmp->type == 3 && (!ft_strcmp(tmp->arg, "<") ||
-			!ft_strcmp(tmp->arg, "<<")) && tmp->next != node)
+		if (tmp->type == 3 && (!ft_strcmp(tmp->arg, "<")
+				|| !ft_strcmp(tmp->arg, "<<")) && tmp->next != node)
 			return (0);
 		tmp = tmp->next;
 	}

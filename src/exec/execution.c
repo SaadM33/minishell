@@ -15,6 +15,7 @@
 void	full_execution(t_data *data)
 {
 	int		pid;
+	int		status;
 	t_cmd	*cmd;
 
 	cmd = data->cmd_list;
@@ -43,7 +44,6 @@ void	full_execution(t_data *data)
 			}
 			if (pid > 0 && !cmd->next)
 			{
-				int status;
 				waitpid(pid, &status, 0);
 				if (WIFEXITED(status))
 					data->exit_code = WEXITSTATUS(status);

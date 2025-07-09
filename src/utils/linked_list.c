@@ -17,8 +17,6 @@ void	add_token_node(t_token **head, char *arg, int type, int append)
 	t_token	*new;
 	t_token	*curr;
 
-	// if (!arg) // need abilty to add null strings to the list
-	// 	return ;
 	new = ft_malloc(sizeof(t_token));
 	new->arg = arg;
 	new->type = type;
@@ -81,7 +79,8 @@ void	print_token_list(t_token *lst)
 {
 	while (lst)
 	{
-		printf("str: %s	type: %i	append: %i\n", lst->arg, lst->type, lst->append);
+		printf("str: %s	type: %i  append: %i\n", lst->arg,
+			lst->type, lst->append);
 		lst = lst->next;
 	}
 }
