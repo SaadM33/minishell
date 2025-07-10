@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:13:39 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/10 20:49:26 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:22:53 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,6 @@ char	*ft_heredoc_name(int c)
 	path = ft_strjoin("/tmp/", name);
 	return (ft_free(name), path);
 }
-
-// int	ft_should_expand(t_token *node)
-// {
-// 	int	should_expand;
-
-// 	should_expand = 1;
-// 	while (node && node->append && node->next)
-// 	{
-// 		if (node->type)
-// 			should_expand = 0;
-// 		node = node->next;
-// 	}
-// 	if (node->type)
-// 		should_expand = 0;
-// 	return (should_expand);
-// }
 
 void	heredoc_read_loop(t_token *node, int fd, int should_expand,
 		t_data *data)
