@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:19:27 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/08 21:42:53 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:27:19 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,38 @@ void	expand_all(t_data *data)
 		cmd->list = new_list;
 		cmd = cmd->next;
 	}
+}
+
+int	has_var(char *str)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(str, '$');
+	while (tmp && !ft_isalpha(tmp[1]) && tmp[1] != '_' && tmp[1] != '?')
+		tmp = ft_strchr(tmp + 1, '$');
+	return (tmp != 0);
+}
+
+int	var_index(char *str)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(str, '$');
+	while (tmp && !ft_isalpha(tmp[1]) && tmp[1] != '_' && tmp[1] != '?')
+		tmp = ft_strchr(tmp + 1, '$');
+	if (tmp)
+		return (tmp - str);
+	return (0);
+}
+
+int	var_end_index(char *str)
+{
+	char	*tmp;
+
+	tmp = str + var_index(str) + 1;
+	if (*tmp == '?')
+		return (tmp + 1 - str);
+	while (ft_isalnum(*tmp) || *tmp == '_')
+		tmp++;
+	return (tmp - str);
 }

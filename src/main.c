@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/08 21:53:29 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:23:20 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ int	main(int argc, char **argv, char **env)
 		if (data->str[0] == '\0')
 			continue ;
 		add_history(data->str);
-		if (!parser(&data))
+		if (!parser(data))
 			continue ;
-		full_execution(&data);
-		free_cmd_list(&data->cmd_list);
+		full_execution(data);
+		free_cmd_list(&(data->cmd_list));
 		ft_free(data->str);
 	}
 	return (0);
@@ -78,7 +78,7 @@ void	ft_exit(int exit_code)
 	free_cmd_list(&(get_data()->cmd_list));
 	list = ft_get_list();
 	if (!list || !*list)
-		return ;
+		exit(exit_code);
 	curr = *list;
 	while (curr)
 	{

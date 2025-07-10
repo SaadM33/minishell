@@ -3,48 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_and_join.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 22:02:45 by omar              #+#    #+#             */
-/*   Updated: 2025/06/26 09:06:47 by omar             ###   ########.fr       */
+/*   Updated: 2025/07/10 21:31:24 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	has_var(char *str)
-{
-	char	*tmp;
-
-	tmp = ft_strchr(str, '$');
-	while (tmp && !ft_isalpha(tmp[1]) && tmp[1] != '_' && tmp[1] != '?')
-		tmp = ft_strchr(tmp + 1, '$');
-	return (tmp != 0);
-}
-
-int	var_index(char *str)
-{
-	char	*tmp;
-
-	tmp = ft_strchr(str, '$');
-	while (tmp && !ft_isalpha(tmp[1]) && tmp[1] != '_' && tmp[1] != '?')
-		tmp = ft_strchr(tmp + 1, '$');
-	if (tmp)
-		return (tmp - str);
-	return (0);
-}
-
-int	var_end_index(char *str)
-{
-	char	*tmp;
-
-	tmp = str + var_index(str) + 1;
-	if (*tmp == '?')
-		return (tmp + 1 - str);
-	while (ft_isalnum(*tmp) || *tmp == '_')
-		tmp++;
-	return (tmp - str);
-}
 
 char	*var_name(char *str)
 {

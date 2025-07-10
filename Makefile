@@ -20,11 +20,13 @@ LIB_NAME =	libft.a
 SRC_NAME =	main.c \
 			parsing/parser.c \
 			parsing/lexer.c \
+			parsing/lexer_utils.c \
 			parsing/syntax_checker.c \
 			parsing/expand_and_join.c \
 			parsing/expand_all.c \
-			parsing/redirection2.c \
 			parsing/heredoc.c \
+			parsing/redirection.c \
+			parsing/redirection_utils.c \
 			parsing/ft_split_whitespace.c \
 			utils/signals.c \
 			utils/errors.c \
@@ -62,7 +64,7 @@ INC_FLAGS =	-Iincludes -Ilibft/includes/
 all: $(NAME)
 
 val: fresh
-	valgrind  --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
 
 run: fresh
 	./$(NAME)

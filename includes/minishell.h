@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/08 21:53:05 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:27:59 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,14 @@ int		parser(t_data *data);
 int		lexer(t_data *data);
 int		syntax_checker(t_data *data, char unmatched_quote);
 void	list_to_cmds(t_data *data);
+
+/* redirections and heredoc */
 int		handle_redirections(t_data *data, t_cmd *cmd);
 int		handle_heredoc(t_data *data, t_cmd *cmd);
+int		last_in_redirection(t_cmd *cmd, t_token *node);
+int		open_out_files(t_cmd *cmd, t_token *curr, t_data *data, char *name);
+int		open_in_files(t_cmd *cmd, t_data *data, t_token *curr, char *name);
+int		ft_should_expand(t_token *node);
 
 /* expand and join */
 t_token	*ft_expand_and_join(t_token *node, t_data *data,
@@ -111,6 +117,9 @@ char	*ft_getenv(char *key, t_data *data);
 void	exec_single_builtin(t_data *data, t_cmd *cmd);
 void	execute_cmd(t_data *data, t_token *list);
 void	full_execution(t_data *data);
+int		var_end_index(char *str);
+int		var_index(char *str);
+int		has_var(char *str);
 
 /* Linked list stuff*/
 void	add_cmd_node(t_cmd **head, t_token *list);
@@ -134,11 +143,17 @@ void	free_cmd_list(t_cmd **head);
 
 /* general */
 int		ft_isspace(char c);
+t_data	*get_data(void);
 char	*ft_strjoin3(char *str1, char *middle, char *str2);
 void	free_appended_nodes(t_token **head, t_token *node);
 
 /* tmp for now */
 int		ft_heredoc(t_token *node, t_cmd *cmd, t_data *data);
 void	close_prev_fd(t_cmd *cmd, int in_or_out);
+
+/* lexer shmelter */
+int		ft_isdelimiter(char c);
+int		ft_isoperator(char c);
+int		ft_isquote(char c);
 
 #endif

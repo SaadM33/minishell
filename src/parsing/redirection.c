@@ -6,80 +6,119 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:36:26 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/08 23:01:24 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:47:01 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// this is the very first redirection handler
-
-int	is_redirection(t_token *token)
+int	open_files(t_cmd *cmd, t_token *curr, t_data *data, char *filename)
 {
-	if (ft_strcmp(token->arg, ">>") == 0 || ft_strcmp(token->arg, "<<") == 0 ||
-		ft_strcmp(token->arg, "<") == 0 || ft_strcmp(token->arg, ">") == 0)
-		return (1);
+	if (!ft_strcmp(curr->arg, ">") || !ft_strcmp(curr->arg, ">>"))
+	{
+		if (open_out_files(cmd, curr, data, filename) == -1)
+			return (-1);
+	}
+	if (!ft_strcmp(curr->arg, "<"))
+	{
+		if (open_in_files(cmd, data, curr, filename) == -1)
+			return (-1);
+	}
 	return (0);
 }
 
-void	close_prev_fd(t_cmd *cmd, int in_or_out)
+void	free_appended_nodes(t_token **head, t_token *node)
 {
-	if (in_or_out == 0 && cmd->in_fd != 0)
-		close(cmd->in_fd);
-	else if (in_or_out == 1 && cmd->out_fd != 1)
-		close(cmd->out_fd);
+	t_token	*tmp;
+
+	if (node->type == 3)
+	{
+		tmp = node->next;
+		remove_token(head, node);
+		node = tmp;
+	}
+	tmp = node;
+	while (tmp && tmp->next && tmp->next && tmp->append)
+	{
+		node = tmp;
+		tmp = tmp->next;
+		remove_token(head, node);
+	}
+	remove_token(head, tmp);
 }
 
-void	open_files(t_cmd *cmd, t_token *curr)
+void	ambiguous_error(t_token *node)
 {
-	if (is_redirection(curr))
+	char *(s), *str1, *str2;
+	s = ft_strdup("");
+	while (node && node->type < 3)
 	{
-		if (ft_strcmp(curr->arg, ">") == 0)
+		if (node->type == 2)
 		{
-			close_prev_fd(cmd, 1);
-			cmd->out_fd = open(curr->next->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			str1 = ft_strjoin3(s, "\"", node->arg);
+			str2 = ft_strjoin(str1, "\"");
+			ft_free(str1);
 		}
-		else if (ft_strcmp(curr->arg, ">>") == 0)
+		else if (node->type == 1)
 		{
-			close_prev_fd(cmd, 1);
-			cmd->out_fd = open(curr->next->arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			str1 = ft_strjoin3(s, "'", node->arg);
+			str2 = ft_strjoin(str1, "'");
+			ft_free(str1);
 		}
-		else if (ft_strcmp(curr->arg, "<") == 0)
-		{
-			close_prev_fd(cmd, 0);
-			cmd->in_fd = open(curr->next->arg, O_RDONLY);
-		}
-		// else if (ft_strcmp(curr->arg, "<<") == 0)
-		// {
-		// 	close_prev_fd(cmd, 0);
-		// 	cmd->in_fd = handle_heredoc(curr->next->arg);
-		// }
+		else
+			str2 = ft_strjoin(s, node->arg);
+		ft_free(s);
+		s = str2;
+		if (!node->append)
+			break ;
+		node = node->next;
 	}
+	return (ft_error3("minishell: ", s, ": ambiguous redirect\n"), ft_free(s));
+}
+
+int	redirect(t_token *curr, t_cmd *cmd, t_data *data)
+{
+	t_token	*tmp;
+
+	if (cmd->in_fd != -1 && cmd->out_fd != -1
+		&& curr->type == 3 && ft_strcmp(curr->arg, "<<"))
+	{
+		tmp = ft_expand_and_join(curr->next, data, 0, NULL);
+		if (!tmp || !tmp->arg || tmp->next)
+		{
+			ambiguous_error(curr->next);
+			free_token_list(&tmp);
+			return (data->exit_code = 1, cmd->skip_cmd = 1, 1);
+		}
+		if (open_files(cmd, curr, data, tmp->arg))
+		{
+			ft_error4("minishell: ", tmp->arg, ": ", strerror(errno));
+			return (ft_error("\n"), free_token_list(&tmp),
+				data->exit_code = 1, cmd->skip_cmd = 1, 1);
+		}
+		free_token_list(&tmp);
+	}
+	return (0);
 }
 
 int	handle_redirections(t_data *data, t_cmd *cmd)
 {
 	t_token	*curr;
+	int		check;
 
 	while (cmd)
 	{
 		curr = cmd->list;
 		while (curr)
 		{
-			open_files(cmd, curr);
-			if (cmd->in_fd == -1 || cmd->out_fd == -1)
+			check = redirect(curr, cmd, data);
+			if (curr->type == 3)
 			{
-				perror(curr->next->arg);
-				cmd->skip_cmd = 1;
-				data->exit_code = 1;
-				break ;
+				free_appended_nodes(&cmd->list, curr);
+				curr = cmd->list;
 			}
-			if (is_redirection(curr))
-			{
-				remove_token(&cmd->list, curr->next);
-				remove_token(&cmd->list, curr);
-			}
-			curr = curr->next;
+			else
+				curr = curr->next;
 		}
 		cmd = cmd->next;
 	}

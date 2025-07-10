@@ -1,0 +1,115 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 20:34:41 by obentahi          #+#    #+#             */
+/*   Updated: 2025/07/10 20:48:21 by obentahi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+void	close_prev_fd(t_cmd *cmd, int in_or_out)
+{
+	if (in_or_out == 0 && cmd->in_fd != 0 && cmd->in_fd != -1)
+		close(cmd->in_fd);
+	else if (in_or_out == 1 && cmd->out_fd != 1 && cmd->out_fd != -1)
+		close(cmd->out_fd);
+}
+
+int	open_in_files(t_cmd *cmd, t_data *data, t_token *curr, char *filename)
+{
+	int	tmp;
+
+	close_prev_fd(cmd, 1);
+	tmp = open(filename, O_RDONLY, 0644);
+	if (tmp == -1)
+	{
+		close_prev_fd(cmd, 0);
+		close_prev_fd(cmd, 1);
+		data->exit_code = 1;
+		cmd->skip_cmd = 1;
+		return (-1);
+	}
+	if (cmd->in_fd == 0 && last_in_redirection(cmd, curr->next))
+		cmd->in_fd = tmp;
+	else
+		close(tmp);
+	return (0);
+}
+
+int	open_out_files(t_cmd *cmd, t_token *curr, t_data *data, char *filename)
+{
+	int	tmp;
+
+	if (!ft_strcmp(curr->arg, ">"))
+	{
+		close_prev_fd(cmd, 1);
+		tmp = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
+	else
+	{
+		close_prev_fd(cmd, 1);
+		tmp = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
+	if (tmp == -1)
+	{
+		close_prev_fd(cmd, 0);
+		close_prev_fd(cmd, 1);
+		data->exit_code = 1;
+		cmd->skip_cmd = 1;
+		return (-1);
+	}
+	if (cmd->out_fd == 1)
+		cmd->out_fd = tmp;
+	else
+		close(tmp);
+	return (0);
+}
+
+int	last_in_redirection(t_cmd *cmd, t_token *node)
+{
+	t_token	*tmp;
+	t_token	*tmp1;
+	int		has_in_red_after;
+
+	tmp = cmd->list;
+	while (tmp)
+	{
+		has_in_red_after = 0;
+		tmp1 = tmp->next;
+		while (tmp1)
+		{
+			if (!ft_strcmp(tmp1->arg, "<") || !ft_strcmp(tmp1->arg, "<<"))
+			{
+				has_in_red_after = 1;
+				break ;
+			}
+			tmp1 = tmp1->next;
+		}
+		if (tmp->type == 3 && (!ft_strcmp(tmp->arg, "<<") || !ft_strcmp(
+					tmp->arg, "<")) && tmp->next == node && has_in_red_after)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int	ft_should_expand(t_token *node)
+{
+	int	should_expand;
+
+	should_expand = 1;
+	while (node && node->append && node->next)
+	{
+		if (node->type)
+			should_expand = 0;
+		node = node->next;
+	}
+	if (node->type)
+		should_expand = 0;
+	return (should_expand);
+}

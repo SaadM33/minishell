@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:05:27 by obentahi          #+#    #+#             */
-/*   Updated: 2025/06/23 21:03:49 by omar             ###   ########.fr       */
+/*   Updated: 2025/07/10 21:13:07 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_isspace(char c)
-{
-	return (c == ' ' || (c >= 9 && c <= 13));
-}
-
-int	ft_isdelimiter(char c)
-{
-	return (c == ' ' || (c >= 9 && c <= 13) || c == '<'
-		|| c == '>' || c == '|' || c == '"' || c == '\'' || !c);
-}
-
-int	ft_isoperator(char c)
-{
-	return (c == '<' || c == '>' || c == '|');
-}
-
-int	ft_isquote(char c)
-{
-	return (c == '"' || c == '\'');
-}
 
 int	ft_alloc_size(char *str, int i)
 {
@@ -64,8 +43,9 @@ int	lexer2(t_data *data, char quote, int start, int *i)
 	}
 	else if (quote && data->str[*i] == quote)
 	{
-		add_token_node(&data->token_list, ft_substr(data->str, start, (*i) - start),
-			1 + (data->str[*i] == '"'), !ft_isdelimiter(data->str[(*i) + 1])
+		add_token_node(&data->token_list, ft_substr(data->str, start,
+				(*i) - start), 1 + (data->str[*i] == '"'),
+			!ft_isdelimiter(data->str[(*i) + 1])
 			|| ft_isquote(data->str[(*i) + 1]));
 		(*i)++;
 		return (0);
