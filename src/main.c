@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/10 20:23:20 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:35:55 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*build_prompt(void)
 	static char	prompt[1000];
 
 	getcwd(cwd, sizeof(cwd));
-	snprintf(prompt, 1000, "┌──(minishell)-[%s]\n└─❯ ", cwd);
+	snprintf(prompt, 2000, "┌──(minishell)-[%s]\n└─❯ ", cwd);
 	return (prompt);
 }
 

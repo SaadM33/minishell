@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 17:36:26 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/10 20:47:01 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:44:03 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,13 @@ int	redirect(t_token *curr, t_cmd *cmd, t_data *data)
 int	handle_redirections(t_data *data, t_cmd *cmd)
 {
 	t_token	*curr;
-	int		check;
 
 	while (cmd)
 	{
 		curr = cmd->list;
 		while (curr)
 		{
-			check = redirect(curr, cmd, data);
+			redirect(curr, cmd, data);
 			if (curr->type == 3)
 			{
 				free_appended_nodes(&cmd->list, curr);
