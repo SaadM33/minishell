@@ -12,36 +12,14 @@
 
 #include "minishell.h"
 
-char	*join_path(const char *dir, const char *cmd);
-char	*check_in_path(t_token *list, t_data *data);
-char	**build_argv(t_data *data, t_token *list);
+char	**build_argv(t_token *list);
 
-void	execute_cmd(t_data *data, t_token *list)
+int	is_directory(const char *path)
 {
-	char	*cmd;
-	char	**argv;		
-
-	cmd = check_in_path(list, data);
-	argv = build_argv(data, list);
-	if (execve(cmd, argv, data->env) == -1)
-	{
-		if (ft_strchr(cmd, '/'))
-			printf("%s: No such file or directory\n", cmd);
-		else
-			printf("%s: command not found\n", cmd);
-		ft_exit(127);
-	}	
-}
-
-char	*join_path(const char *dir, const char *cmd)
-{
-	char	*tmp;
-	char	*full_path;
-
-	tmp = ft_strjoin(dir, "/");
-	full_path = ft_strjoin(tmp, cmd);
-	ft_free(tmp);
-	return (full_path);
+	struct stat sb;
+	if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
+		return (1);
+	return (0);
 }
 
 char	*check_in_path(t_token *list, t_data *data)
@@ -50,16 +28,14 @@ char	*check_in_path(t_token *list, t_data *data)
 	char	*full_cmd;
 	char	**dirs;
 	int		i;
-
+	
 	cmd = list->arg;
-	if (access(cmd, X_OK) == 0)
-		return (cmd);
 	dirs = ft_split(ft_getenv("PATH", data), ':');
 	i = 0;
 	while (dirs[i])
 	{
-		full_cmd = join_path(dirs[i], cmd);
-		if (access(full_cmd, X_OK) == 0)
+		full_cmd = ft_strjoin3(dirs[i], "/", cmd);
+		if (!access(full_cmd, X_OK) && !is_directory(full_cmd))
 		{
 			list->arg = full_cmd;
 			return (ft_free(cmd), ft_free_table(dirs), full_cmd);
@@ -67,18 +43,54 @@ char	*check_in_path(t_token *list, t_data *data)
 		ft_free(full_cmd);
 		i++;
 	}
-	ft_free_table(dirs);
-	return (cmd);
+	ft_error2(cmd, ": command not found\n");
+	ft_exit(127);
+	return (NULL);
 }
 
-char	**build_argv(t_data *data, t_token *list)
+char	*lookup_cmd(t_data *data, t_token *list)
+{
+	if (!ft_strchr(list->arg, '/'))
+		return (check_in_path(list, data));
+	else
+	{
+		if (access(list->arg, F_OK) == -1)
+		{
+			ft_error3("minishell: ", list->arg, ": N"
+				"o such file or directory\n");
+			ft_exit(127);
+		}
+		if (is_directory(list->arg))
+		{
+			ft_error3("minishell: ", list->arg, ": is a directory\n");
+			ft_exit(126);
+		}
+		return (list->arg);
+	}
+}
+
+void	execute_cmd(t_data *data, t_token *list)
+{
+	char	*cmd;
+	char	**argv;		
+
+	cmd = lookup_cmd(data, list);
+	argv = build_argv(list);
+	if (execve(cmd, argv, data->env) == -1)
+	{
+		ft_error("minishell: ");
+		perror("execve");
+		ft_exit(126);
+	}
+}
+
+char	**build_argv(t_token *list)
 {
 	char	**argv;
 	int		count;
 	int		i;
 	t_token	*tmp;
-
-	(void) data;
+	
 	count = 0;
 	tmp = list;
 	while (tmp)
