@@ -16,7 +16,8 @@ char	**build_argv(t_token *list);
 
 int	is_directory(const char *path)
 {
-	struct stat sb;
+	struct stat	sb;
+
 	if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
 		return (1);
 	return (0);
@@ -24,11 +25,11 @@ int	is_directory(const char *path)
 
 char	*check_in_path(t_token *list, t_data *data)
 {
+	int		i;
 	char	*cmd;
 	char	*full_cmd;
 	char	**dirs;
-	int		i;
-	
+
 	cmd = list->arg;
 	dirs = ft_split(ft_getenv("PATH", data), ':');
 	i = 0;
@@ -90,7 +91,7 @@ char	**build_argv(t_token *list)
 	int		count;
 	int		i;
 	t_token	*tmp;
-	
+
 	count = 0;
 	tmp = list;
 	while (tmp)
