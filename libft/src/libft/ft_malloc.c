@@ -65,24 +65,3 @@ void	ft_free(void *ptr)
 	}
 	free(tmp);
 }
-
-void	ft_exit(int exit_code)
-{
-	t_list	**list;
-	t_list	*curr;
-	t_list	*next;
-
-	list = ft_get_list();
-	if (!list || !*list)
-		return ;
-	curr = *list;
-	while (curr)
-	{
-		next = curr->next;
-		free(curr->content);
-		free(curr);
-		curr = next;
-	}
-	*list = NULL;
-	exit(exit_code);
-}
