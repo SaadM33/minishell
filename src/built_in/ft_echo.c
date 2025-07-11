@@ -17,6 +17,8 @@ int	n_only(t_token *node, int *flag)
 	int	i;
 
 	i = 0;
+	if (!node || !node->arg || node->arg[0] != '-')
+		return (0);
 	if (node->arg[0] == '-' && node->arg[1] == 'n')
 		i++;
 	while (node->arg[i])

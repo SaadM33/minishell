@@ -18,7 +18,9 @@ char	*build_prompt(void)
 	static char	prompt[1000];
 
 	getcwd(cwd, sizeof(cwd));
-	snprintf(prompt, 2000, "┌──(minishell)-[%s]\n└─❯ ", cwd);
+	ft_strlcpy(prompt, "┌──(minishell)-[", sizeof(prompt));
+	ft_strlcat(prompt, cwd, sizeof(prompt));
+	ft_strlcat(prompt, "]\n└─❯ ", sizeof(prompt));
 	return (prompt);
 }
 
