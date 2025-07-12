@@ -37,14 +37,14 @@ static char	*get_cd_target(t_data *data, t_token *list)
 	{
 		arg = ft_getenv("HOME", data);
 		if (!arg)
-			printf("cd: HOME not set\n");
+			ft_error("cd: HOME not set\n");
 		data->exit_code = 1;
 	}
 	else if (!ft_strcmp(arg, "-"))
 	{
 		arg = ft_getenv("OLDPWD", data);
 		if (!arg)
-			printf("cd: OLDPWD not set\n");
+			ft_error("cd: OLDPWD not set\n");
 		data->exit_code = 1;
 	}
 	return (arg);
@@ -77,7 +77,7 @@ int	do_cd(t_data *data, t_token *list)
 	char	*cd_arg;
 
 	if (count_args(list) > 1)
-		return (printf("cd: too many arguments\n"),
+		return (ft_error("cd: too many arguments\n"),
 			data->exit_code = 1, 1);
 	cd_arg = get_cd_target(data, list);
 	if (!cd_arg)

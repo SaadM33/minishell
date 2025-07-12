@@ -69,11 +69,11 @@ int	do_exit(t_data *data, t_token *list)
 		if (!is_strict_num(arg->arg)
 			|| !parse_exit_code(arg->arg, &exit_status))
 		{
-			printf("exit: %s: numeric argument required\n", arg->arg);
+			ft_error3("exit: ", arg->arg, ": numeric argument required\n");
 			ft_exit(2);
 		}
 		if (arg->next)
-			return (printf("exit: too many arguments\n"),
+			return (ft_error("exit: too many arguments\n"),
 				data->exit_code = 1, 1);
 	}
 	else

@@ -41,7 +41,6 @@ void	full_execution(t_data *data)
 	int		pipe_fd[2];
 	int		prev_fd;
 	pid_t	pid;
-	int		status;
 
 	cmd = data->cmd_list;
 	if (is_builtin(cmd->list) && !cmd->next && !cmd->skip_cmd)
@@ -64,12 +63,16 @@ void	full_execution(t_data *data)
 				close(pipe_fd[1]);
 			prev_fd = (cmd->next) ? pipe_fd[0] : -1;
 			if (!cmd->next)
-				waitpid(pid, &status, 0);
+			{
+				waitpid(pid, &data->exit_code, 0);
+				if (WIFEXITED(data->exit_code))
+				data->exit_code = WEXITSTATUS(data->exit_code);
+				else if (WIFSIGNALED(data->exit_code))
+				data->exit_code = 128 + WTERMSIG(data->exit_code);
+			}
 			cmd = cmd->next;
 		}
 	}
-	data->exit_code = (WIFEXITED(status)) ? WEXITSTATUS(status)
-		: 128 + WTERMSIG(status);
 	while (wait(NULL) > 0)
 		;
 }

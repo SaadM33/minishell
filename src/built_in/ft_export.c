@@ -73,7 +73,7 @@ int	is_valid_key(char *key, t_data *data)
 
 	if (!key || (!ft_isalpha(key[0]) && key[0] != '_'))
 	{
-		printf("export: '%s': not a valid identifier\n", key);
+		ft_error3("export: '", key, "': not a valid identifier\n");
 		data->exit_code = 1;
 		return (0);
 	}
@@ -82,7 +82,7 @@ int	is_valid_key(char *key, t_data *data)
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
 		{
-			printf("export: '%s': not a valid identifier\n", key);
+			ft_error3("export: '", key, "': not a valid identifier\n");
 			data->exit_code = 1;
 			return (0);
 		}

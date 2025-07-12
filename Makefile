@@ -64,8 +64,8 @@ INC_FLAGS =	-Iincludes -Ilibft/includes/
 all: $(NAME)
 
 val: fresh
-	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
-
+	valgrind  --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./minishell
+# --track-fds=yes
 run: fresh
 	./$(NAME)
 
