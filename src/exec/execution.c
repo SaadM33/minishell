@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:33:00 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/08 22:56:22 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:07:16 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	full_execution(t_data *data)
 		{
 			if (cmd->next && pipe(pipe_fd) == -1)
 				return (perror("pipe"), (void)0);
-			signal(SIGINT, printnl);
 			pid = fork();
 			if (pid == 0)
 				child_exec(data, cmd, prev_fd, pipe_fd);

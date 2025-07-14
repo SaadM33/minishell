@@ -3,45 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:43:01 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/04 19:38:36 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:05:24 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern volatile sig_atomic_t	g_received_signal;
+extern int	g_received_signal;
 
 void	sigint_handler(int sig)
 {
+	t_data	*data;
+
+	data = get_data();
 	if (sig == SIGINT)
 	{
 		g_received_signal = sig;
 		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		if (!*get_status())
+		{
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_redisplay();
+			data->exit_code = 130;
+		}
 		return ;
 	}
 }
 
 void	handle_signals(void)
 {
-	struct sigaction	sa;
-
-	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_mask, SIGQUIT);
-	sa.sa_flags = SA_RESTART;
-	sa.sa_handler = sigint_handler;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		ft_exit(1);
+	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-}
-
-void printnl(int signum)
-{
-	(void)signum;
-	write(1, "\n", 1);
 }

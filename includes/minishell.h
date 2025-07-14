@@ -6,14 +6,14 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/10 21:27:59 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:06:24 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/includes/libft.h"
+# include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
@@ -146,6 +146,7 @@ void	free_cmd_list(t_cmd **head);
 /* general */
 int		ft_isspace(char c);
 t_data	*get_data(void);
+int		*get_status(void);
 char	*ft_strjoin3(char *str1, char *middle, char *str2);
 void	free_appended_nodes(t_token **head, t_token *node);
 

@@ -6,23 +6,13 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/10 23:35:55 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/14 19:34:14 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*build_prompt(void)
-{
-	char		cwd[1000];
-	static char	prompt[1000];
-
-	getcwd(cwd, sizeof(cwd));
-	ft_strlcpy(prompt, "┌──(minishell)-[", sizeof(prompt));
-	ft_strlcat(prompt, cwd, sizeof(prompt));
-	ft_strlcat(prompt, "]\n└─❯ ", sizeof(prompt));
-	return (prompt);
-}
+int	g_received_signal = 0;
 
 t_data	*get_data(void)
 {
@@ -31,37 +21,51 @@ t_data	*get_data(void)
 	return (&data);
 }
 
-volatile sig_atomic_t	g_received_signal = 0;
+int	*get_status(void)
+{
+	static int	flag;
+
+	return (&flag);
+}
+
+int	handle_input(void)
+{
+	int		*is_running;
+	t_data	*data;
+
+	data = get_data();
+	is_running = get_status();
+	*is_running = 0;
+	data->str = readline("minishell> ");
+	if (data->str == NULL)
+	{
+		printf("exit\n");
+		ft_exit(data->exit_code);
+	}
+	if (data->str[0] == '\0')
+	{
+		ft_free(data->str);
+		return (0);
+	}
+	*is_running = 1;
+	add_history(data->str);
+	return (1);
+}
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data	*data;
-	char	*prompt;
 
 	(void) argc;
 	(void) argv;
 	data = get_data();
 	ft_bzero(data, sizeof(t_data));
 	data->env = ft_dupenv(env);
+	handle_signals();
 	while (1)
 	{
-		handle_signals();
-		prompt = build_prompt();
-		data->str = readline(prompt);
-		// shrink this , put all input handling in a function
-		if (g_received_signal == SIGINT)
-		{
-			data->exit_code = 130;
-			g_received_signal = 0;
-		}
-		if (data->str == NULL)
-		{
-			printf("exit\n");
-			ft_exit(data->exit_code);
-		}
-		if (data->str[0] == '\0')
+		if (!handle_input())
 			continue ;
-		add_history(data->str);
 		if (!parser(data))
 			continue ;
 		full_execution(data);
