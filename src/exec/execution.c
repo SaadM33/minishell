@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:33:00 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/14 19:07:16 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/14 21:30:08 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ void	full_execution(t_data *data)
 	while (cmd)
 	{
 		if (cmd->skip_cmd)
+		{
+			if (data->cmd_list->next && !cmd->next && !cmd->list)
+				data->exit_code = 0;
 			cmd = cmd->next;
+		}
 		else
 		{
 			if (cmd->next && pipe(pipe_fd) == -1)
