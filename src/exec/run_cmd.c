@@ -51,11 +51,13 @@ char	*check_in_path(t_token *list, t_data *data)
 
 char	*lookup_cmd(t_data *data, t_token *list)
 {
-	if (!ft_strchr(list->arg, '/'))
+	if (!list || !list->arg)
+		return(ft_exit(0), NULL);
+	else if (!ft_strchr(list->arg, '/'))
 		return (check_in_path(list, data));
 	else
 	{
-		if (access(list->arg, F_OK) == -1)
+		if (access(list->arg, F_OK) == -1)	
 		{
 			ft_error3("minishell: ", list->arg, ": N"
 				"o such file or directory\n");
@@ -77,6 +79,8 @@ void	execute_cmd(t_data *data, t_token *list)
 
 	cmd = lookup_cmd(data, list);
 	argv = build_argv(list);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (execve(cmd, argv, data->env) == -1)
 	{
 		ft_error("minishell: ");

@@ -43,9 +43,9 @@ int	main(int argc, char **argv, char **env)
 	data = get_data();
 	ft_bzero(data, sizeof(t_data));
 	data->env = ft_dupenv(env);
-	handle_signals();
 	while (1)
 	{
+		handle_signals();
 		prompt = build_prompt();
 		data->str = readline(prompt);
 		// shrink this , put all input handling in a function

@@ -54,6 +54,7 @@ void	full_execution(t_data *data)
 		{
 			if (cmd->next && pipe(pipe_fd) == -1)
 				return (perror("pipe"), (void)0);
+			signal(SIGINT, printnl);
 			pid = fork();
 			if (pid == 0)
 				child_exec(data, cmd, prev_fd, pipe_fd);
@@ -66,9 +67,11 @@ void	full_execution(t_data *data)
 			{
 				waitpid(pid, &data->exit_code, 0);
 				if (WIFEXITED(data->exit_code))
-				data->exit_code = WEXITSTATUS(data->exit_code);
+					data->exit_code = WEXITSTATUS(data->exit_code);
 				else if (WIFSIGNALED(data->exit_code))
-				data->exit_code = 128 + WTERMSIG(data->exit_code);
+					data->exit_code = 128 + WTERMSIG(data->exit_code);
+				if (data->exit_code == 131)
+					ft_error("Quit (core dumped)\n");
 			}
 			cmd = cmd->next;
 		}

@@ -39,3 +39,9 @@ void	handle_signals(void)
 		ft_exit(1);
 	signal(SIGQUIT, SIG_IGN);
 }
+
+void printnl(int signum)
+{
+	(void)signum;
+	write(1, "\n", 1);
+}
