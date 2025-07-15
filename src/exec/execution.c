@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:33:00 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/14 21:30:08 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/15 20:35:03 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	pipe_and_fork(t_data *data, t_cmd *cmd, int prev_fd, int *pipe_fd)
 	pid_t	pid;
 
 	if (cmd->next && pipe(pipe_fd) == -1)
-		return (perror("pipe err"), 0);
+		return (perror("pipe"), 0);
 	if (!cmd->skip_cmd)
 	{
 		pid = fork();

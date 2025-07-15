@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:24:56 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/05/01 19:09:25 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/15 21:26:52 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	do_exit(t_data *data, t_token *list)
 	t_token		*arg;
 	long long	exit_status;
 
-	printf("exit\n");
+	if (data->cmd_list && !data->cmd_list->next)
+		printf("exit\n");
 	arg = list->next;
 	if (arg)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envirenment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omar <omar@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:00:27 by omar              #+#    #+#             */
-/*   Updated: 2025/06/25 00:28:17 by omar             ###   ########.fr       */
+/*   Updated: 2025/07/15 16:47:55 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**ft_dupenv(char **env)
 	{
 		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
-			(perror("minishell"), exit(errno));
+			(perror("minishell"), ft_exit(errno));
 		i++;
 	}
 	new_env[i] = NULL;
