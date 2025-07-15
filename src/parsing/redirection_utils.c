@@ -25,7 +25,7 @@ int	open_in_files(t_cmd *cmd, t_data *data, t_token *curr, char *filename)
 	int	tmp;
 
 	close_prev_fd(cmd, 1);
-	tmp = open(filename, O_RDONLY, 0644);
+	tmp = open(filename, O_RDONLY);
 	if (tmp == -1)
 	{
 		close_prev_fd(cmd, 0);
@@ -90,7 +90,7 @@ int	last_in_redirection(t_cmd *cmd, t_token *node)
 			}
 			tmp1 = tmp1->next;
 		}
-		if (tmp->type == 3 && (!ft_strcmp(tmp->arg, "<<") || !ft_strcmp(
+		if (tmp->type == OP && (!ft_strcmp(tmp->arg, "<<") || !ft_strcmp(
 					tmp->arg, "<")) && tmp->next == node && has_in_red_after)
 			return (0);
 		tmp = tmp->next;

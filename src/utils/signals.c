@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-extern int	g_received_signal;
-
 void	sigint_handler(int sig)
 {
 	t_data	*data;
@@ -21,7 +19,6 @@ void	sigint_handler(int sig)
 	data = get_data();
 	if (sig == SIGINT)
 	{
-		g_received_signal = sig;
 		write(1, "\n", 1);
 		if (!*get_status())
 		{

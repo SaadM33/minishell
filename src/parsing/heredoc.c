@@ -21,14 +21,11 @@ int	handle_heredoc(t_data *data, t_cmd *cmd)
 		curr = cmd->list;
 		while (curr)
 		{
-			if (curr->type == 3 && !ft_strcmp(curr->arg, "<<"))
+			if (curr->type == OP && !ft_strcmp(curr->arg, "<<"))
 			{
 				close_prev_fd(cmd, 0);
 				if (ft_heredoc(curr->next, cmd, data))
 					return (0);
-			}
-			if (curr->type == 3 && !ft_strcmp(curr->arg, "<<"))
-			{
 				free_appended_nodes(&cmd->list, curr);
 				curr = cmd->list;
 			}
@@ -59,7 +56,7 @@ char	*ft_heredoc_name(int c)
 	{
 		if (read(fd, &c, 1) == -1)
 			return (perror("minishell: read"), ft_free(name), close(fd), NULL);
-		name[i] = char_buff[c % 92];
+		name[i] = char_buff[c % ft_strlen(char_buff)];
 		i++;
 	}
 	close(fd);
@@ -88,12 +85,11 @@ void	heredoc_read_loop(t_token *node, int fd, int should_expand,
 	{
 		str2 = mini_expand(str, data);
 		ft_free(str);
+		str = str2;
 	}
-	else
-		str2 = str;
-	write(fd, str2, ft_strlen(str2));
+	write(fd, str, ft_strlen(str));
 	write(fd, "\n", 1);
-	ft_free(str2);
+	ft_free(str);
 }
 
 int	ft_fork_heredoc(t_token *node, int wr_fd, int rd_fd, int should_expand)
@@ -112,7 +108,7 @@ int	ft_fork_heredoc(t_token *node, int wr_fd, int rd_fd, int should_expand)
 		close(rd_fd);
 		get_fd(&wr_fd);
 		signal(SIGINT, heredoc_sig_handler);
-		while (69)
+		while (1)
 			heredoc_read_loop(node, wr_fd, should_expand, data);
 	}
 	(close(wr_fd), wait(&status));
@@ -140,11 +136,11 @@ int	ft_heredoc(t_token *node, t_cmd *cmd, t_data *data)
 	if (wr_fd == -1)
 		return (perror("minishell: open"), data->exit_code = 1,
 			ft_free(heredoc_name), free_token_list(&node), -1);
-	rd_fd = open(heredoc_name, O_RDONLY, 0600);
+	rd_fd = open(heredoc_name, O_RDONLY);
 	if (rd_fd == -1)
 		return (perror("minishell: open"), data->exit_code = 1,
 			ft_free(heredoc_name), free_token_list(&node), close(wr_fd), -1);
-	(unlink(heredoc_name), ft_free(heredoc_name), close_prev_fd(cmd, 0));
+	(unlink(heredoc_name), ft_free(heredoc_name));
 	if (ft_fork_heredoc(node, wr_fd, rd_fd, should_expand))
 		return (free_token_list(&node), close(rd_fd), -1);
 	if (is_last_redirect)

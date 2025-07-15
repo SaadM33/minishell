@@ -111,7 +111,7 @@ int	handle_redirections(t_data *data, t_cmd *cmd)
 		while (curr)
 		{
 			redirect(curr, cmd, data);
-			if (curr->type == 3)
+			if (curr->type == OP)
 			{
 				free_appended_nodes(&cmd->list, curr);
 				curr = cmd->list;

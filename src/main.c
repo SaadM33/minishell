@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-int	g_received_signal = 0;
-
 t_data	*get_data(void)
 {
 	static t_data	data;
@@ -28,12 +26,10 @@ int	*get_status(void)
 	return (&flag);
 }
 
-int	handle_input(void)
+int	handle_input(t_data *data)
 {
 	int		*is_running;
-	t_data	*data;
 
-	data = get_data();
 	is_running = get_status();
 	*is_running = 0;
 	data->str = readline("Megashell> ");
@@ -59,12 +55,11 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	data = get_data();
-	ft_bzero(data, sizeof(t_data));
 	data->env = ft_dupenv(env);
 	handle_signals();
 	while (1)
 	{
-		if (!handle_input())
+		if (!handle_input(data))
 			continue ;
 		if (!parser(data))
 			continue ;

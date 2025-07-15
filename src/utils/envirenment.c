@@ -22,7 +22,7 @@ char	**ft_dupenv(char **env)
 		i++;
 	new_env = ft_calloc(i + 1, sizeof(char *));
 	if (!new_env)
-		(perror("minishell"), exit(errno));
+		(perror("minishell"), ft_exit(errno));
 	i = 0;
 	while (env[i])
 	{

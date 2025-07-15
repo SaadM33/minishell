@@ -72,7 +72,6 @@ typedef struct s_data
 }	t_data;
 
 /* Signal func */
-void	printnl(int signum);
 void	handle_signals(void);
 void	sigint_handler(int sig);
 void	heredoc_sig_handler(int sig);
