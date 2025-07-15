@@ -40,7 +40,7 @@ char	**remove_var(char **env, char *key)
 	i = 0;
 	while (env[i])
 		i++;
-	new_env = ft_malloc(sizeof(char *) * i);
+	new_env = ft_malloc(sizeof(char *) * (i + 1));
 	if (!new_env)
 		return (NULL);
 	i = -1;

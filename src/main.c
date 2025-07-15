@@ -36,7 +36,7 @@ int	handle_input(void)
 	data = get_data();
 	is_running = get_status();
 	*is_running = 0;
-	data->str = readline("minishell> ");
+	data->str = readline("Megashell> ");
 	if (data->str == NULL)
 	{
 		printf("exit\n");
