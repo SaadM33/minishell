@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:43:01 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/14 19:05:24 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:33:28 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,19 @@ void	handle_signals(void)
 {
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+int	get_fd(int	*ptr)
+{
+	static int	*fd;
+
+	if (ptr)
+		fd = ptr;
+	return (*fd);
+}
+
+void	heredoc_sig_handler(int sig)
+{
+	close(get_fd(NULL));
+	ft_exit(128 + sig);
 }

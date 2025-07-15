@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:13:39 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/10 22:22:53 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:36:36 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int	ft_fork_heredoc(t_token *node, int wr_fd, int rd_fd, int should_expand)
 	if (!pid)
 	{
 		close(rd_fd);
-		signal(SIGINT, SIG_DFL);
+		get_fd(&wr_fd);
+		signal(SIGINT, heredoc_sig_handler);
 		while (69)
 			heredoc_read_loop(node, wr_fd, should_expand, data);
 	}

@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/14 19:06:24 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:35:53 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_data
 void	printnl(int signum);
 void	handle_signals(void);
 void	sigint_handler(int sig);
+void	heredoc_sig_handler(int sig);
 
 /* Parsing */
 int		parser(t_data *data);
@@ -144,19 +145,20 @@ void	free_token_list(t_token **head);
 void	free_cmd_list(t_cmd **head);
 
 /* general */
-int		ft_isspace(char c);
 t_data	*get_data(void);
+int		get_fd(int	*ptr);
 int		*get_status(void);
+int		ft_isspace(char c);
 char	*ft_strjoin3(char *str1, char *middle, char *str2);
 void	free_appended_nodes(t_token **head, t_token *node);
 
 /* tmp for now */
-int		ft_heredoc(t_token *node, t_cmd *cmd, t_data *data);
 void	close_prev_fd(t_cmd *cmd, int in_or_out);
+int		ft_heredoc(t_token *node, t_cmd *cmd, t_data *data);
 
 /* lexer shmelter */
-int		ft_isdelimiter(char c);
-int		ft_isoperator(char c);
 int		ft_isquote(char c);
+int		ft_isoperator(char c);
+int		ft_isdelimiter(char c);
 
 #endif
