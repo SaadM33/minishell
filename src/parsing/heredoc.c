@@ -6,7 +6,7 @@
 /*   By: obentahi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 17:13:39 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/15 10:36:36 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/15 16:37:03 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,13 @@ int	ft_fork_heredoc(t_token *node, int wr_fd, int rd_fd, int should_expand)
 		while (69)
 			heredoc_read_loop(node, wr_fd, should_expand, data);
 	}
-	close(wr_fd);
-	wait(&status);
+	(close(wr_fd), wait(&status));
 	if (WIFSIGNALED(status))
 		return (data->exit_code = WTERMSIG(status) + 128, 1);
 	else
 		data->exit_code = WEXITSTATUS(status);
+	if (data->exit_code == 130)
+		return (1);
 	return (0);
 }
 
