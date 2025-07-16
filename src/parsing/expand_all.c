@@ -44,7 +44,7 @@ void	expand_all(t_data *data)
 		while (tmp1)
 		{
 			tmp2 = ft_expand_and_join(tmp1, data, 0, NULL);
-			if (tmp2 && !tmp2->arg)
+			if (!tmp2 || (tmp2 && !tmp2->arg))
 				free_token_list(&tmp2);
 			else
 				token_add_back(&new_list, tmp2);

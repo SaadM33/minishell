@@ -64,14 +64,12 @@ t_token	*split_str_to_list(char *str, t_token *node, int *bflag, int *aflag)
 	list = NULL;
 	if (node->type == DQ)
 		add_token_node(&list, str, 1, 0);
-	else if (!*str && node->type == DF)
-		(add_token_node(&list, NULL, 1, 0), ft_free(str));
 	else
 	{
 		if (ft_isspace(str[0]) && bflag)
 			*bflag = 1;
 		i = 0;
-		while (str[i + 1])
+		while (str[i] && str[i + 1])
 			i++;
 		*aflag = ft_isspace(str[i]);
 		i = 0;

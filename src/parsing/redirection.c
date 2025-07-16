@@ -38,7 +38,7 @@ void	free_appended_nodes(t_token **head, t_token *node)
 		node = tmp;
 	}
 	tmp = node;
-	while (tmp && tmp->next && tmp->next && tmp->append)
+	while (tmp && tmp->next && tmp->append)
 	{
 		node = tmp;
 		tmp = tmp->next;
@@ -51,15 +51,15 @@ void	ambiguous_error(t_token *node)
 {
 	char *(s), *str1, *str2;
 	s = ft_strdup("");
-	while (node && node->type < 3)
+	while (node && node->type < OP)
 	{
-		if (node->type == 2)
+		if (node->type == DQ)
 		{
 			str1 = ft_strjoin3(s, "\"", node->arg);
 			str2 = ft_strjoin(str1, "\"");
 			ft_free(str1);
 		}
-		else if (node->type == 1)
+		else if (node->type == SQ)
 		{
 			str1 = ft_strjoin3(s, "'", node->arg);
 			str2 = ft_strjoin(str1, "'");
@@ -81,7 +81,7 @@ int	redirect(t_token *curr, t_cmd *cmd, t_data *data)
 	t_token	*tmp;
 
 	if (cmd->in_fd != -1 && cmd->out_fd != -1
-		&& curr->type == 3 && ft_strcmp(curr->arg, "<<"))
+		&& curr->type == OP && ft_strcmp(curr->arg, "<<"))
 	{
 		tmp = ft_expand_and_join(curr->next, data, 0, NULL);
 		if (!tmp || !tmp->arg || tmp->next)

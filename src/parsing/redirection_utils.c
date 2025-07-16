@@ -22,51 +22,41 @@ void	close_prev_fd(t_cmd *cmd, int in_or_out)
 
 int	open_in_files(t_cmd *cmd, t_data *data, t_token *curr, char *filename)
 {
-	int	tmp;
+	int	fd;
 
-	close_prev_fd(cmd, 1);
-	tmp = open(filename, O_RDONLY);
-	if (tmp == -1)
+	close_prev_fd(cmd, 0);
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
 	{
-		close_prev_fd(cmd, 0);
 		close_prev_fd(cmd, 1);
 		data->exit_code = 1;
 		cmd->skip_cmd = 1;
 		return (-1);
 	}
 	if (cmd->in_fd == 0 && last_in_redirection(cmd, curr->next))
-		cmd->in_fd = tmp;
+		cmd->in_fd = fd;
 	else
-		close(tmp);
+		close(fd);
 	return (0);
 }
 
 int	open_out_files(t_cmd *cmd, t_token *curr, t_data *data, char *filename)
 {
-	int	tmp;
+	int	fd;
 
+	close_prev_fd(cmd, 1);
 	if (!ft_strcmp(curr->arg, ">"))
-	{
-		close_prev_fd(cmd, 1);
-		tmp = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	}
+		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
-	{
-		close_prev_fd(cmd, 1);
-		tmp = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	}
-	if (tmp == -1)
+		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
 	{
 		close_prev_fd(cmd, 0);
-		close_prev_fd(cmd, 1);
 		data->exit_code = 1;
 		cmd->skip_cmd = 1;
 		return (-1);
 	}
-	if (cmd->out_fd == 1)
-		cmd->out_fd = tmp;
-	else
-		close(tmp);
+	cmd->out_fd = fd;
 	return (0);
 }
 

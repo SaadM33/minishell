@@ -23,7 +23,7 @@ int	parser(t_data *data)
 	free_token_list(&data->token_list);
 	if (!handle_heredoc(data, data->cmd_list))
 		return (free_cmd_list(&data->cmd_list), 0);
-	handle_redirections(data, data->cmd_list);//
+	handle_redirections(data, data->cmd_list);
 	expand_all(data);
 	return (1);
 }
