@@ -24,17 +24,21 @@ int	open_in_files(t_cmd *cmd, t_data *data, t_token *curr, char *filename)
 {
 	int	fd;
 
-	close_prev_fd(cmd, 0);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
+		close_prev_fd(cmd, 0);
 		close_prev_fd(cmd, 1);
 		data->exit_code = 1;
 		cmd->skip_cmd = 1;
+		cmd->in_fd = -1;
 		return (-1);
 	}
 	if (cmd->in_fd == 0 && last_in_redirection(cmd, curr->next))
+	{
+		close_prev_fd(cmd, 0);
 		cmd->in_fd = fd;
+	}
 	else
 		close(fd);
 	return (0);
@@ -54,6 +58,7 @@ int	open_out_files(t_cmd *cmd, t_token *curr, t_data *data, char *filename)
 		close_prev_fd(cmd, 0);
 		data->exit_code = 1;
 		cmd->skip_cmd = 1;
+		cmd->out_fd = -1;
 		return (-1);
 	}
 	cmd->out_fd = fd;

@@ -87,6 +87,8 @@ int	redirect(t_token *curr, t_cmd *cmd, t_data *data)
 		if (!tmp || !tmp->arg || tmp->next)
 		{
 			ambiguous_error(curr->next);
+			if (!ft_strcmp(curr->arg, "<"))
+				cmd->in_fd = -1;
 			free_token_list(&tmp);
 			return (data->exit_code = 1, cmd->skip_cmd = 1, 1);
 		}
@@ -110,7 +112,8 @@ int	handle_redirections(t_data *data, t_cmd *cmd)
 		curr = cmd->list;
 		while (curr)
 		{
-			redirect(curr, cmd, data);
+			if (cmd->out_fd != -1 || cmd->in_fd != -1)
+				redirect(curr, cmd, data);
 			if (curr->type == OP)
 			{
 				free_appended_nodes(&cmd->list, curr);

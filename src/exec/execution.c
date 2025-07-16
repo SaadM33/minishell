@@ -58,7 +58,8 @@ int	pipe_and_fork(t_data *data, t_cmd *cmd, int prev_fd, int *pipe_fd)
 				ft_error("Quit (core dumped)\n");
 		}
 	}
-	else if (data->cmd_list->next && !cmd->next && !cmd->list)
+	else if (data->cmd_list->next && !cmd->next && !cmd->list
+		&& cmd->in_fd == -1)
 		data->exit_code = 0;
 	return (1);
 }
