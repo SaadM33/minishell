@@ -1,24 +1,64 @@
-
 all allowed function used in minishell in order of when called:
 
-malloc:
-free:
-perror:
-exit:
-signal:
-write:
-rl_replace_line:
-rl_on_new_line:
-rl_redisplay:
-close:
-readline:
-printf:
-add_history:
-open:
-read:
-unlink:
-fork:
-dup2:
-dup:
-wait:
-waitpid:
+malloc:  
+Allocates memory dynamically on the heap. Commonly used for strings, arrays, and structures needed at runtime.
+
+free:  
+Frees memory previously allocated by `malloc` or related functions, preventing memory leaks.
+
+perror:  
+Prints a human-readable error message to `stderr` based on the current value of `errno`.
+
+exit:  
+Terminates the current process and returns an exit status to the parent. Can also perform cleanup.
+
+signal:  
+Sets up a handler function to respond to specific signals like `SIGINT` (Ctrl+C), `SIGQUIT`, etc.
+
+write:  
+Writes raw bytes to a file descriptor. Often used for output to standard output or error (`stdout`, `stderr`).
+
+rl_replace_line:  
+Replaces the current line buffer in the readline library. Useful when updating the command line programmatically.
+
+rl_on_new_line:  
+Informs readline that the cursor is at a new line, preparing it for redisplay.
+
+rl_redisplay:  
+Forces readline to refresh and display the current command line buffer.
+
+close:  
+Closes a file descriptor, releasing system resources and making the descriptor available for reuse.
+
+readline:  
+Reads a line of input from the user with line editing and history capabilities. Part of GNU Readline.
+
+printf:  
+Prints formatted output to standard output. Used for user messages, debugging, etc.
+
+add_history:  
+Adds a line to the readline history list, enabling users to recall previous commands.
+
+open:  
+Opens a file and returns a file descriptor. Can be used for reading, writing, or both.
+
+read:  
+Reads raw bytes from a file descriptor into a buffer.
+
+unlink:  
+Deletes a file by removing its directory entry. The file is deleted once all references are closed.
+
+fork:  
+Creates a new process by duplicating the current one. The new process (child) gets a unique PID.
+
+dup2:  
+Duplicates a file descriptor to a specific target descriptor. Used in input/output redirection.
+
+dup:  
+Duplicates a file descriptor to the lowest available number. Also used for redirection.
+
+wait:  
+Waits for any child process to finish and returns its PID. Can retrieve the child's exit status.
+
+waitpid:  
+Waits for a specific child process to finish. More control than `wait`, especially with options like `WNOHANG`.
