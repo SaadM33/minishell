@@ -6,7 +6,7 @@
 /*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:24:56 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:08:56 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/16 21:30:42 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ static int	parse_exit_code(char *str, long long *result)
 		if (*str < '0' || *str > '9')
 			return (0);
 		num = num * 10 + (*str - '0');
-		if ((sign == 1 && num > LLONG_MAX)
-			|| (sign == -1 && (-num < LLONG_MIN)))
+		if (num < 0)
 			return (0);
 		str++;
 	}

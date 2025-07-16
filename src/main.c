@@ -6,7 +6,7 @@
 /*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/16 21:11:08 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/16 21:48:01 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		full_execution(data);
 		free_cmd_list(&(data->cmd_list));
-		ft_free(data->str);
 	}
 	return (0);
 }
@@ -77,6 +76,7 @@ void	ft_exit(int exit_code)
 	t_list	*next;
 
 	free_cmd_list(&(get_data()->cmd_list));
+	ft_free(get_data()->str);
 	list = ft_get_list();
 	if (!list || !*list)
 		exit(exit_code);
