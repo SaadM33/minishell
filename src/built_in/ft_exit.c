@@ -22,14 +22,14 @@ static int	is_strict_num(char *str)
 	while (str[i] && ft_isspace(str[i]))
 		i++;
 	if (str[i] == '+' || str[i] == '-')
-		str++;
+		i++;
 	if (str[i] == '\0')
 		return (0);
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		i++;
 	while (str[i])
 	{
-		if (!ft_isspace(*str))
+		if (!ft_isspace(str[i]))
 			return (0);
 		i++;
 	}
@@ -53,7 +53,8 @@ static int	parse_exit_code(char *str, long long *result)
 	}
 	while (*str)
 	{
-		num = num * 10 + (*str - '0');
+		if (*str >= '0' && *str <= '9')
+			num = num * 10 + (*str - '0');
 		if ((sign == 1 && num > LLONG_MAX)
 			|| (sign == -1 && (-num < LLONG_MIN)))
 			return (0);
@@ -76,11 +77,12 @@ int	do_exit(t_data *data, t_token *list)
 		if (!is_strict_num(arg->arg)
 			|| !parse_exit_code(arg->arg, &exit_status))
 		{
-			ft_error3("minishell: exit: ", arg->arg, ": numeric argument required\n");
+			ft_error3("minishell: exit: ", arg->arg,
+				": numeric argument required\n");
 			ft_exit(2);
 		}
 		if (arg->next)
-			return (ft_error("exit: too many arguments\n"),
+			return (ft_error("minishell: exit: too many arguments\n"),
 				data->exit_code = 1, 1);
 	}
 	else
