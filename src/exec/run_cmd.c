@@ -6,7 +6,7 @@
 /*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:11:08 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/16 21:09:21 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:42:20 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,26 @@ char	*check_in_path(t_token *list, t_data *data)
 
 char	*lookup_cmd(t_data *data, t_token *list)
 {
+	char	*path;
+
+	path = ft_getenv("PATH", data);
 	if (!list || !list->arg)
-		return (ft_exit(0), NULL);
-	else if (!ft_strchr(list->arg, '/'))
-		return (check_in_path(list, data));
+		return (ft_free(path), ft_exit(0), NULL);
+	else if (!ft_strchr(list->arg, '/') && path && *path)
+		return (ft_free(path), check_in_path(list, data));
 	else if (is_directory(list->arg))
 	{
 		ft_error3("minishell: ", list->arg, ": Is a directory\n");
+		ft_free(path);
 		ft_exit(126);
 	}
-	return (list->arg);
+	return (ft_free(path), list->arg);
 }
 
 void	execute_cmd(t_data *data, t_token *list)
 {
 	char	*cmd;
-	char	**argv;		
+	char	**argv;
 
 	cmd = lookup_cmd(data, list);
 	argv = build_argv(list);

@@ -6,7 +6,7 @@
 /*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:24:56 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:30:42 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/17 15:36:48 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_strict_num(char *str)
 	if (!str || !str[0])
 		return (0);
 	i = 0;
-	while (str[i] && str[i] == ' ')
+	while (str[i] && ft_isspace(str[i]))
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 		str++;
@@ -29,7 +29,7 @@ static int	is_strict_num(char *str)
 		i++;
 	while (str[i])
 	{
-		if (str[i] != ' ')
+		if (!ft_isspace(*str))
 			return (0);
 		i++;
 	}
@@ -43,7 +43,7 @@ static int	parse_exit_code(char *str, long long *result)
 
 	sign = 1;
 	num = 0;
-	while (*str == ' ')
+	while (ft_isspace(*str))
 		str++;
 	if (*str == '+' || *str == '-')
 	{
