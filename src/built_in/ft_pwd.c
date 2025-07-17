@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:24:07 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:09:09 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:07:00 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
- * we should use (getcwd) function!
- * */
 int	do_pwd(t_data *data)
 {
-	char	cwd[PATH_MAX];
+	char	cwd[4096];
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		printf("%s\n", ft_getenv("PWD", data));
+	if (getcwd(cwd, sizeof(cwd)) == NULL && !data->cwd)
+	{
+		ft_error2("pwd: error retrieving current directory: getcwd: cannot ",
+			"access parent directories: No such file or directory\n");
+		data->exit_code = 1;
+	}
 	else
-		printf("%s\n", cwd);
+		printf("%s\n", data->cwd);
 	data->exit_code = 0;
 	return (1);
 }

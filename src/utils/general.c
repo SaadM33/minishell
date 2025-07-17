@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 03:19:37 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:10:55 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:06:40 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,11 @@ char	*ft_strjoin3(char *str1, char *middle, char *str2)
 	full_result = ft_strjoin(tmp, str2);
 	ft_free(tmp);
 	return (full_result);
+}
+
+int	*get_status(void)
+{
+	static int	flag;
+
+	return (&flag);
 }

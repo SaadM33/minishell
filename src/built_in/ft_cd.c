@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 14:59:36 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:08:33 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:06:56 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ static void	update_pwd(t_data *data, char *old_pwd, char *cd_arg)
 
 	ft_setenv(&data->env, "OLDPWD", old_pwd);
 	if (getcwd(new_pwd, sizeof(new_pwd)))
-		ft_setenv(&data->env, "PWD", new_pwd);
+	{
+		data->cwd = ft_strdup(new_pwd);
+		ft_setenv(&data->env, "PWD", data->cwd);
+	}	
 	else
 	{
-		tmp = ft_strjoin3(ft_getenv("PWD", data), "/", cd_arg);
-		if (tmp)
-		{
-			ft_setenv(&data->env, "PWD", tmp);
-			ft_free(tmp);
-		}
+		tmp = ft_strjoin3(data->cwd, "/", cd_arg);
+		ft_setenv(&data->env, "PWD", tmp);
+		data->cwd = ft_strdup(tmp);
+		ft_free(tmp);
 		perror("cd: error retrieving current directory: "
 			"getcwd: cannot access parent directories");
 	}
@@ -82,12 +83,11 @@ int	do_cd(t_data *data, t_token *list)
 	cd_arg = get_cd_target(data, list);
 	if (!cd_arg)
 		return (data->exit_code = 1, 1);
-	if (!getcwd(old_pwd, sizeof(old_pwd)))
-		ft_strlcpy(old_pwd, ft_getenv("PWD", data), 4096);
+	ft_strlcpy(old_pwd, data->cwd, 4096);
 	if (chdir(cd_arg) == -1)
 	{
 		data->exit_code = 1;
-		perror(cd_arg);
+		perror("chdir");
 		return (1);
 	}
 	update_pwd(data, old_pwd, cd_arg);

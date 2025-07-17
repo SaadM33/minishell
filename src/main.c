@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/27 20:59:49 by moel-hib          #+#    #+#             */
-/*   Updated: 2025/07/16 21:48:01 by obentahi         ###   ########.fr       */
+/*   Created: 2025/07/17 21:06:27 by sel-maaq          #+#    #+#             */
+/*   Updated: 2025/07/17 21:06:32 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,19 @@ t_data	*get_data(void)
 	return (&data);
 }
 
-int	*get_status(void)
+int	init_cwd(t_data *data)
 {
-	static int	flag;
+	char	cwd[PATH_MAX];
 
-	return (&flag);
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		ft_error2("shell-init: error retrieving current directory: getcwd: ",
+			"cannot access parent directories: No such file or directory\n");
+		data->cwd = NULL;
+		return (0);
+	}
+	data->cwd = ft_strdup(cwd);
+	return (1);
 }
 
 int	handle_input(t_data *data)
@@ -55,6 +63,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	data = get_data();
+	init_cwd(data);
 	data->env = ft_dupenv(env);
 	handle_signals();
 	while (1)

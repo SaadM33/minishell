@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:08:18 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:06:45 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_data
 {
 	char	**env;
 	char	*str;
+	char	*cwd;
 
 	t_token	*token_list;
 
@@ -75,6 +76,7 @@ typedef struct s_data
 void	handle_signals(void);
 void	sigint_handler(int sig);
 void	heredoc_sig_handler(int sig);
+int		*get_status(void);
 
 /* Parsing */
 int		parser(t_data *data);
