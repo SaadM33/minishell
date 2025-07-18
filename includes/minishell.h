@@ -6,7 +6,7 @@
 /*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/18 17:56:36 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/18 19:51:32 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct s_data
 	char	*cwd;
 
 	t_token	*token_list;
+
+	int		in_save;
+	int		out_save;
 
 	t_cmd	*cmd_list;
 	int		exit_code;

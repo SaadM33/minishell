@@ -6,7 +6,7 @@
 /*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 21:06:27 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/18 18:17:29 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/18 20:18:43 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	data = get_data();
+	data->in_save = 0;
+	data->out_save = 1;
 	data->env = ft_dupenv(env);
 	init_cwd(data);
 	if (data->cwd)
@@ -85,9 +87,15 @@ void	ft_exit(int exit_code)
 	t_list	**list;
 	t_list	*curr;
 	t_list	*next;
+	t_data	*data;
 
-	free_cmd_list(&(get_data()->cmd_list));
-	ft_free(get_data()->str);
+	data = get_data();
+	free_cmd_list(&(data->cmd_list));
+	ft_free(data->str);
+	if (data->in_save)
+		close(data->in_save);
+	if (data->out_save)
+		close(data->out_save);
 	list = ft_get_list();
 	if (!list || !*list)
 		exit(exit_code);
