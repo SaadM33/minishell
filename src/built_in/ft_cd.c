@@ -6,7 +6,7 @@
 /*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 14:59:36 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/18 12:09:26 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:03:09 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static void	update_pwd(t_data *data, char *old_pwd, char *cd_arg)
 	char	new_pwd[4096];
 	char	*tmp;
 
-	ft_setenv(&data->env, "OLDPWD", old_pwd);
+	if (data->cwd)
+		ft_setenv(&data->env, "OLDPWD", old_pwd);
 	if (getcwd(new_pwd, sizeof(new_pwd)))
 	{
 		data->cwd = ft_strdup(new_pwd);
@@ -61,7 +62,10 @@ static void	update_pwd(t_data *data, char *old_pwd, char *cd_arg)
 	}	
 	else
 	{
-		tmp = ft_strjoin3(data->cwd, "/", cd_arg);
+		if (data->cwd)
+			tmp = ft_strjoin3(data->cwd, "/", cd_arg);
+		else
+			tmp = ft_strdup(cd_arg);
 		ft_setenv(&data->env, "PWD", tmp);
 		data->cwd = ft_strdup(tmp);
 		ft_free(tmp);
