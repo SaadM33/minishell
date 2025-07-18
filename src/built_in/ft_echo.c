@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 15:22:38 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:08:40 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:48:58 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	do_echo(t_data *data, t_token *list)
 	t_token	*cd_args;
 	int		had_n;
 
+	data->exit_code = 0;
 	had_n = 0;
 	cd_args = list->next;
 	if (!cd_args)
@@ -56,6 +57,5 @@ int	do_echo(t_data *data, t_token *list)
 	}
 	if (!had_n)
 		printf("\n");
-	data->exit_code = 0;
 	return (1);
 }

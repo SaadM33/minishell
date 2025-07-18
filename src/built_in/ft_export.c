@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 21:37:28 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/16 21:09:02 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:50:10 by sel-maaq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ void	print_sorted_env(char **env);
 int	do_export(t_data *data, t_token *list)
 {
 	t_token	*args;
-	char	*found;
-	char	*key;
-	char	*value;
 
+	char *(found), *key, *value;
 	args = list->next;
+	data->exit_code = 0;
 	if (!args)
 		return (print_sorted_env(data->env), 1);
 	while (args)
