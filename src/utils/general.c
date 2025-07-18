@@ -25,6 +25,26 @@ void	ft_free_table(char **table)
 	ft_free(table);
 }
 
+int	ft_in_env(char *key, t_data *data)
+{
+	int		i;
+	int		keylen;
+	int		out;
+	char	**env;
+
+	i = 0;
+	keylen = ft_strlen(key);
+	env = data->env;
+	out = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], key, keylen) && env[i][keylen] == '=')
+			out = 1;
+		i++;
+	}
+	return (out);
+}
+
 char	*ft_strjoin3(char *str1, char *middle, char *str2)
 {
 	char	*tmp;

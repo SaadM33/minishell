@@ -113,6 +113,7 @@ int		do_unset(t_data *data, t_token *list);
 
 /* env functions */
 char	**ft_dupenv(char **env);
+int		ft_in_env(char *key, t_data *data);
 void	sort_env(char **env);
 void	ft_setenv(char ***env, char *key, char *val);
 char	*ft_getenv(char *key, t_data *data);
