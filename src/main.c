@@ -21,7 +21,7 @@ t_data	*get_data(void)
 
 int	init_cwd(t_data *data)
 {
-	char	cwd[PATH_MAX];
+	char	cwd[4096];
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
