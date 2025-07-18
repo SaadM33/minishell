@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 21:06:27 by sel-maaq          #+#    #+#             */
-/*   Updated: 2025/07/17 21:06:32 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:17:29 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	data = get_data();
-	init_cwd(data);
 	data->env = ft_dupenv(env);
+	init_cwd(data);
+	if (data->cwd)
+		ft_setenv(&data->env, "PWD", data->cwd);
 	handle_signals();
 	while (1)
 	{

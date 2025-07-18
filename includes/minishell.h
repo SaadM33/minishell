@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-maaq <sel-maaq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 22:16:17 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/17 21:06:45 by sel-maaq         ###   ########.fr       */
+/*   Updated: 2025/07/18 17:56:36 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char	**ft_dupenv(char **env);
 void	sort_env(char **env);
 void	ft_setenv(char ***env, char *key, char *val);
 char	*ft_getenv(char *key, t_data *data);
+void	ft_remvar(char *key, char ***env);
 
 /* Execution! */
 void	exec_single_builtin(t_data *data, t_cmd *cmd);

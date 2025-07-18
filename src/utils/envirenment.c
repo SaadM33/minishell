@@ -6,7 +6,7 @@
 /*   By: obentahi <obentahi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:00:27 by obentahi          #+#    #+#             */
-/*   Updated: 2025/07/16 21:10:41 by obentahi         ###   ########.fr       */
+/*   Updated: 2025/07/18 17:56:14 by obentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,30 @@ void	ft_setenv(char ***env, char *key, char *val)
 	new_env[i++] = entry;
 	new_env[i] = NULL;
 	(ft_free(*env), *env = new_env);
+}
+
+void	ft_remvar(char *key, char ***env)
+{
+	int		i;
+	char	*out;
+
+	i = 0;
+	out = NULL;
+	while ((*env)[i])
+	{
+		if (!ft_strncmp((*env)[i], key, ft_strlen(key)) &&
+			(*env)[i][ft_strlen(key)] == '=')
+		{
+			free((*env)[i]);
+			i++;
+			while ((*env)[i])
+			{
+				(*env)[i - 1] = (*env)[i];
+				i++;
+			}
+			(*env)[i - 1] = NULL;
+			return ;
+		}
+		i++;
+	}
 }
