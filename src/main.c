@@ -92,9 +92,9 @@ void	ft_exit(int exit_code)
 	data = get_data();
 	free_cmd_list(&(data->cmd_list));
 	ft_free(data->str);
-	if (data->in_save)
+	if (data->in_save != 0)
 		close(data->in_save);
-	if (data->out_save)
+	if (data->out_save != 1)
 		close(data->out_save);
 	list = ft_get_list();
 	if (!list || !*list)
